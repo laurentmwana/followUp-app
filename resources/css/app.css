@@ -1,3 +1,119 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+    :root {
+        --background: 247 55% 98%;
+        --foreground: 247 55% 1%;
+        --muted: 247 31% 93%;
+        --muted-foreground: 247 7% 28%;
+        --popover: 247 55% 98%;
+        --popover-foreground: 247 55% 1%;
+        --card: 247 55% 97%;
+        --card-foreground: 0 0% 0%;
+        --border: 247 9% 89%;
+        --input: 247 9% 89%;
+        --primary: 247 50% 57%;
+        --primary-foreground: 0 0% 100%;
+        --secondary: 247 11% 86%;
+        --secondary-foreground: 247 11% 26%;
+        --accent: 247 11% 86%;
+        --accent-foreground: 247 11% 26%;
+        --destructive: 20 85% 32%;
+        --destructive-foreground: 0 0% 100%;
+        --ring: 247 50% 57%;
+        --radius: 0.5rem;
+    }
+
+    .dark {
+        --background: 247 36% 0%;
+        --foreground: 247 29% 97%;
+        --muted: 247 31% 7%;
+        --muted-foreground: 247 7% 72%;
+        --popover: 247 36% 0%;
+        --popover-foreground: 247 29% 97%;
+        --card: 0 0% 1%;
+        --card-foreground: 247 29% 98%;
+        --border: 247 9% 13%;
+        --input: 247 9% 13%;
+        --primary: 247 50% 57%;
+        --primary-foreground: 0 0% 100%;
+        --secondary: 247 9% 12%;
+        --secondary-foreground: 247 9% 72%;
+        --accent: 247 9% 12%;
+        --accent-foreground: 247 9% 72%;
+        --destructive: 20 85% 46%;
+        --destructive-foreground: 0 0% 100%;
+        --ring: 247 50% 57%;
+    }
+}
+
+@layer base {
+    * {
+        @apply border-border;
+    }
+    body {
+        @apply bg-background text-foreground;
+    }
+
+    ::-webkit-scrollbar {
+        @apply w-1 h-1;
+    }
+
+    ::-webkit-scrollbar-track {
+        @apply p-2 bg-background;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        @apply rounded-sm bg-gray-500;
+    }
+
+    @media screen and (max-width: 1200px) {
+        .responsive-table,
+        .responsive-table tbody,
+        .responsive-table tfoot,
+        .responsive-table tr,
+        .responsive-table th,
+        .responsive-table td {
+            @apply block;
+        }
+
+        .responsive-table tr {
+            @apply mb-[30px] border-b-0 bg-background;
+        }
+
+        .responsive-table tr:hover {
+            @apply bg-inherit;
+        }
+
+        .responsive-table thead {
+            display: none;
+        }
+
+        .responsive-table td {
+            @apply relative ps-[170px] -mt-[1px] border-b border-muted-foreground/20;
+        }
+
+        .responsive-table td::before {
+            @apply absolute left-0 top-0 bottom-0 p-3 flex items-center justify-center w-[145px] text-center content-[attr(data-label)] border-e border-muted-foreground/20;
+        }
+    }
+
+    /*
+    .ts-control input {
+        @apply p-2 text-gray-800;
+    }
+
+    .ts-dropdown-content {
+        @apply bg-white border border-gray-300 rounded-lg mt-1;
+    }
+
+    .ts-option {
+        @apply px-4 py-2 hover:bg-gray-100 cursor-pointer;
+    } */
+}
+
+.turbolinks-progress-bar {
+    @apply h-[6px] bg-indigo-700;
+}
