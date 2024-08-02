@@ -25,6 +25,5 @@ class CreateDataDefault extends Command
      */
     public function handle()
     {
-        //
     }
 }
