@@ -2,11 +2,6 @@
     <x-container class="py-12">
         <h2 class="text-base font-medium mb-6">Gestion de départment</h2>
 
-        @include('shared.searchable', [
-            'routeCreate' => route('~department.create')
-        ])
-        
-
         <table class="mb-4 w-full caption-bottom text-sm responsive-table">
             <thead class="[&_tr]:border-b">
                 <tr
@@ -26,11 +21,6 @@
                     class="h-10 px-2 text-left align-middle font-medium text-muted-foreground [&:has([role=checkbox])]:pr-0 [&>[role=checkbox]]:translate-y-[2px]"
                 >
                     Options
-                </th>
-                    <th
-                    class="h-10 px-2 text-left align-middle font-medium text-muted-foreground [&:has([role=checkbox])]:pr-0 [&>[role=checkbox]]:translate-y-[2px]"
-                >
-                    Professeurs
                 </th>
                     <th
                         class="h-10 px-2 text-left align-middle font-medium text-muted-foreground [&:has([role=checkbox])]:pr-0 [&>[role=checkbox]]:translate-y-[2px]"
@@ -62,11 +52,6 @@
                     <td
                         class="p-2 align-middle [&:has([role=checkbox])]:pr-0 [&>[role=checkbox]]:translate-y-[2px]"
                     >
-                        {{ $department->professors->count() }}
-                    </td>
-                    <td
-                        class="p-2 align-middle [&:has([role=checkbox])]:pr-0 [&>[role=checkbox]]:translate-y-[2px]"
-                    >
                         {{ $department->options->count() }}
                     </td>
                     <td
@@ -78,9 +63,11 @@
                     <td
                         class="p-2 align-middle [&:has([role=checkbox])]:pr-0 [&>[role=checkbox]]:translate-y-[2px]"
                     >
-                        @include('shared.action', [ 'routeEdit' =>
-                        route('~department.edit', $department), 'routeDestroy' =>
-                        route('~department.destroy', $department), ])
+                    <div class="flex items-center justify-end">
+                        <x-button-link href="{{route('~department.edit', $department)}}">
+                            <i class="bi bi-pen"></i>
+                        </x-button-link>
+                       </div>
                     </td>
                 </tr>
                 @endforeach

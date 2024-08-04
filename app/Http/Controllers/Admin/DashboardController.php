@@ -13,8 +13,6 @@ class DashboardController extends Controller
     {
         return view('admin.dashboard.index', [
             ...$this->getParametersView(),
-            'events' => Event::with(['semester', 'level'])
-                ->orderByDesc('start_date')->limit(2)->get(),
             'delibe' => (new JsonResponse([
                 'okStudent' => 120,
                 'failStudent' => 100,

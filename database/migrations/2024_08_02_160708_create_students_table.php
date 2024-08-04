@@ -1,6 +1,8 @@
 <?php
 
+use App\Generator\Token;
 use App\Models\Level;
+use App\Models\Student;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
@@ -18,11 +20,19 @@ return new class extends Migration
             $table->string('firstname');
             $table->string('phone')->unique();
             $table->char('sex');
+            $table->timestamps();
+        });
+
+        Schema::create('level_student', function (Blueprint $table) {
+            $table->foreignIdFor(Student::class)
+                ->constrained()
+                ->cascadeOnDelete()
+                ->cascadeOnUpdate();
             $table->foreignIdFor(Level::class)
                 ->constrained()
                 ->cascadeOnDelete()
                 ->cascadeOnUpdate();
-            $table->timestamps();
+            $table->primary(['level_id', 'student_id']);
         });
     }
 

@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\Fake\DataFaker;
 use Illuminate\Console\Command;
 
 class CreateDataDefault extends Command
@@ -11,7 +12,7 @@ class CreateDataDefault extends Command
      *
      * @var string
      */
-    protected $signature = 'app:create-data-default';
+    protected $signature = 'app:data-default';
 
     /**
      * The console command description.
@@ -25,5 +26,6 @@ class CreateDataDefault extends Command
      */
     public function handle()
     {
+        DataFaker::generate();
     }
 }

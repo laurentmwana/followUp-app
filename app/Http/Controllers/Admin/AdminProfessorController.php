@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Professor;
-use App\Helpers\SearchDefine;
+use App\Search\Search;
 use Illuminate\Contracts\View\View;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
@@ -13,10 +13,10 @@ class AdminProfessorController extends Controller
 {
     /**
      * Permet d'afficher toutes les professeurs
-     * @param \App\Helpers\SearchDefine $search
+     * @param \App\Search\Search $search
      * @return \Illuminate\Contracts\View\View
      */
-    public function index(SearchDefine $search): View
+    public function index(Search $search): View
     {
         return view('admin.professor.index', [
             'professors' => $search->professors(),

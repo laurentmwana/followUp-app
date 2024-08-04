@@ -2,9 +2,7 @@
     <x-container class="py-12">
         <h2 class="text-base font-medium mb-6">Gestion de promotions</h2>
 
-        @include('shared.searchable', [
-            'routeCreate' => route('~level.create')
-        ])
+        @include('shared.search')
 
         <table class="mb-4 w-full caption-bottom text-sm responsive-table">
             <thead class="[&_tr]:border-b">
@@ -14,8 +12,13 @@
                     <th
                         class="h-10 px-2 text-left align-middle font-medium text-muted-foreground [&:has([role=checkbox])]:pr-0 [&>[role=checkbox]]:translate-y-[2px]"
                     >
-                        Nom
+                        Promotion
                     </th>
+                    <th
+                    class="h-10 px-2 text-left align-middle font-medium text-muted-foreground [&:has([role=checkbox])]:pr-0 [&>[role=checkbox]]:translate-y-[2px]"
+                >
+                    Année academique
+                </th>
                     <th
                         class="h-10 px-2 text-left align-middle font-medium text-muted-foreground [&:has([role=checkbox])]:pr-0 [&>[role=checkbox]]:translate-y-[2px]"
                     >
@@ -43,7 +46,15 @@
                         class="p-2 align-middle [&:has([role=checkbox])]:pr-0 [&>[role=checkbox]]:translate-y-[2px]"
                     >
                         <a href="{{ route('~level.show', $level) }}" class="hover:underline">
-                            {{ $level->name }}
+                            {{ $level->programme->name }}
+                        </a>
+                    </td>
+
+                    <td
+                        class="p-2 align-middle [&:has([role=checkbox])]:pr-0 [&>[role=checkbox]]:translate-y-[2px]"
+                    >
+                        <a href="{{ route('~level.show', $level) }}" class="hover:underline">
+                            {{ $level->year->start }} - {{ $level->year->end }}
                         </a>
                     </td>
 
@@ -68,9 +79,11 @@
                     <td
                         class="p-2 align-middle [&:has([role=checkbox])]:pr-0 [&>[role=checkbox]]:translate-y-[2px]"
                     >
-                        @include('shared.action', [ 'routeEdit' =>
-                        route('~level.edit', $level), 'routeDestroy' =>
-                        route('~level.destroy', $level), ])
+                    <div class="flex">
+                        <x-button-link href="{{ route('~level.show', $level) }}">
+                            <i class="bi bi-eye"></i>
+                        </x-button-link>
+                    </div>
                     </td>
                 </tr>
                 @endforeach

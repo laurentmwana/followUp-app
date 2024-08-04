@@ -2,13 +2,9 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Models\Dean;
-use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Contracts\View\View;
 use App\Http\Controllers\Controller;
-use Illuminate\Http\RedirectResponse;
-use App\Http\Requests\Admin\DeanRequest;
 use App\Models\Semester;
 
 class AdminSemesterController extends Controller

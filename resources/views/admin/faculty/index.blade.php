@@ -2,11 +2,6 @@
     <x-container class="py-12">
         <h2 class="text-base font-medium mb-6">Gestion de faculté</h2>
 
-        @include('shared.searchable', [
-            'routeCreate' => route('~faculty.create')
-        ])
-        @include('admin.faculty.collaborator')
-
         <table class="mb-4 w-full caption-bottom text-sm responsive-table">
             <thead class="[&_tr]:border-b">
                 <tr
@@ -56,9 +51,11 @@
                     <td
                         class="p-2 align-middle [&:has([role=checkbox])]:pr-0 [&>[role=checkbox]]:translate-y-[2px]"
                     >
-                        @include('shared.action', [ 'routeEdit' =>
-                        route('~faculty.edit', $faculty), 'routeDestroy' =>
-                        route('~faculty.destroy', $faculty), ])
+                   <div class="flex items-center justify-end">
+                    <x-button-link href="{{route('~faculty.edit', $faculty)}}">
+                        <i class="bi bi-pen"></i>
+                    </x-button-link>
+                   </div>
                     </td>
                 </tr>
                 @endforeach

@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->integer('start');
             $table->integer('end');
-            $table->boolean('closed')->default(false);
+            $table->integer('state')->default(-1);
             $table->timestamps();
         });
     }

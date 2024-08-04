@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Helpers\SearchDefine;
+use App\Search\Search;
 use App\Models\Option;
 use Illuminate\Http\Request;
 use Illuminate\Contracts\View\View;
@@ -15,10 +15,10 @@ class AdminOptionController extends Controller
 
     /**
      * Permet d'afficher toutes les options
-     * @param \App\Helpers\SearchDefine $search
+     * @param \App\Search\Search $search
      * @return \Illuminate\Contracts\View\View
      */
-    public function index(SearchDefine $search): View
+    public function index(Search $search): View
     {
         return view('admin.option.index', [
             'options' => $search->options(),

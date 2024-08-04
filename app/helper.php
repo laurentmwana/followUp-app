@@ -21,3 +21,11 @@ function isStudent(string $role): bool
 {
     return $role === RoleEnum::ROLE_STUDENT->value;
 }
+
+
+function total(array $number): float
+{
+    $total = 0;
+    foreach ($number as $n) $total += $n;
+    return $total;
+}

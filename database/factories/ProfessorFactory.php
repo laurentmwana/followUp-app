@@ -17,7 +17,11 @@ class ProfessorFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'name' => $this->faker->name,
+            'firstname' => $this->faker->firstname,
+            'phone' => $this->faker->phoneNumber,
+            'email' => $this->faker->unique()->email,
+            'sex' => 'M',
         ];
     }
 }

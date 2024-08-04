@@ -7,17 +7,17 @@ use Illuminate\Contracts\View\View;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\Admin\StudentRequest;
-use App\Helpers\SearchDefine;
+use App\Search\Search;
 
 class AdminStudentController extends Controller
 {
 
     /**
      * Permet d'afficher toutes les étudiants
-     * @param \App\Helpers\SearchDefine $search
+     * @param \App\Search\Search $search
      * @return \Illuminate\Contracts\View\View
      */
-    public function index(SearchDefine $search): View
+    public function index(Search $search): View
     {
         return view('admin.student.index', [
             'students' => $search->students(),

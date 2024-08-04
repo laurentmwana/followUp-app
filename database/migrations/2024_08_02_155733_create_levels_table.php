@@ -1,10 +1,11 @@
 <?php
 
-use App\Models\Programme;
 use App\Models\Year;
-use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
+use App\Models\Option;
+use App\Models\Programme;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
 
 return new class extends Migration
 {
@@ -20,6 +21,10 @@ return new class extends Migration
                 ->cascadeOnDelete()
                 ->cascadeOnUpdate();
             $table->foreignIdFor(Year::class)
+                ->constrained()
+                ->cascadeOnDelete()
+                ->cascadeOnUpdate();
+            $table->foreignIdFor(Option::class)
                 ->constrained()
                 ->cascadeOnDelete()
                 ->cascadeOnUpdate();

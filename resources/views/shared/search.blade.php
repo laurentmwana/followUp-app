@@ -4,7 +4,9 @@ $value = request()->query->get('query');
 
 @endphp
 
-<form action="">
+<div class="flex max-w-md mb-3">
+
+<form action="" >
     <div class="flex items-center gap-2">
         <x-text-input
         name="query"
@@ -27,3 +29,5 @@ $value = request()->query->get('query');
 
     </div>
 </form>
+
+</div>

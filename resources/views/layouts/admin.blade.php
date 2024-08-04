@@ -81,10 +81,10 @@
                     >
 
                     <x-nav-link
-                    href=""
+                         href="{{ route('~delibe.index') }}"
+                        indexer="admin/delibe"
                     >Délibération</x-nav-link
                 >
-
                     </nav>
                 </div>
                 <button

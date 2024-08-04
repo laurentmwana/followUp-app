@@ -17,7 +17,7 @@ class NoteFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'note' => $this->faker->numberBetween(1, 18),
         ];
     }
 }

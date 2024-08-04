@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Models\Dean;
 use App\Models\Note;
+use App\Search\Search;
 use Illuminate\Http\Request;
 use Illuminate\Contracts\View\View;
 use App\Http\Controllers\Controller;
@@ -13,19 +14,11 @@ use App\Http\Requests\Admin\NoteRequest;
 
 class AdminNoteController extends Controller
 {
-    /**
-     * Permet d'afficher toutes les notes
-     * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Contracts\View\View
-     */
-    public function index(Request $request): View
-    {
-        $notes = Note::with(['student', 'course', 'semester'])
-            ->orderByDesc('updated_at')
-            ->paginate();
 
+    public function index(Search $search): View
+    {
         return view('admin.note.index', [
-            'notes' => $notes,
+            'notes' => $search->notes(),
         ]);
     }
 

@@ -67,9 +67,11 @@
                     <td
                         class="p-2 align-middle [&:has([role=checkbox])]:pr-0 [&>[role=checkbox]]:translate-y-[2px]"
                     >
-                        @include('shared.action', [ 'routeEdit' =>
-                        route('~option.edit', $option), 'routeDestroy' =>
-                        route('~option.destroy', $option), ])
+                    <div class="flex items-center justify-end">
+                        <x-button-link href="{{route('~option.edit', $option)}}">
+                            <i class="bi bi-pen"></i>
+                        </x-button-link>
+                       </div>
                     </td>
                 </tr>
                 @endforeach

@@ -13,7 +13,7 @@ class Faculty extends Model
 
     protected $fillable = ['name'];
 
-    public function department(): HasMany
+    public function departments(): HasMany
     {
         return $this->hasMany(Department::class);
     }

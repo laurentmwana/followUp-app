@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Models\Faculty;
 use App\Models\Department;
 use Illuminate\Http\Request;
-use App\Helpers\SearchDefine;
+use App\Search\Search;
 use Illuminate\Contracts\View\View;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
@@ -16,42 +16,15 @@ class AdminDepartmentController extends Controller
 
     /**
      * Permet d'afficher tous les départements
-     * @param \App\Helpers\SearchDefine $search
+     * @param \App\Search\Search $search
      * @return \Illuminate\Contracts\View\View
      */
-    public function index(SearchDefine $search): View
+    public function index(Search $search): View
     {
         return view('admin.department.index', [
             'departments' => $search->departments(),
         ]);
     }
-
-    /**
-     * Permet d'afficher un formulaire de création d'un département
-     * @return \Illuminate\Contracts\View\View
-     */
-    public function create(): View
-    {
-        return view('admin.department.create', [
-            'department' => new Department(),
-        ]);
-    }
-
-
-    /**
-     * Permet de créer un département
-     *
-     * @param \App\Http\Requests\Admin\DepartmentRequest $request
-     * @return \Illuminate\Http\RedirectResponse
-     */
-    public function store(DepartmentRequest $request): RedirectResponse
-    {
-        Department::create($request->validated());
-
-        return redirect()->route('~department.index')
-            ->with('success', 'département créé');
-    }
-
 
     /**
      * Permet d'afficher plus d'information sur un département
@@ -64,8 +37,6 @@ class AdminDepartmentController extends Controller
             'department' => $department,
         ]);
     }
-
-
 
     /**
      *Permet d'afficher un formulaire d'edition d'un département
@@ -92,19 +63,5 @@ class AdminDepartmentController extends Controller
 
         return redirect()->route('~department.index')
             ->with('success', 'département modifiée');
-    }
-
-
-    /**
-     * Permte de supprimer un département
-     * @param \App\Models\Department $department
-     * @return \Illuminate\Http\RedirectResponse
-     */
-    public function destroy(Department $department): RedirectResponse
-    {
-        $department->delete();
-
-        return redirect()->route('~department.index')
-            ->with('success', 'département supprimée');
     }
 }

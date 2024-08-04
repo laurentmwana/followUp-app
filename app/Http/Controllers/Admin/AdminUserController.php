@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Models\User;
 use Illuminate\Http\Request;
-use App\Helpers\SearchDefine;
+use App\Search\Search;
 use Illuminate\Contracts\View\View;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
@@ -18,7 +18,7 @@ class AdminUserController extends Controller
      * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Contracts\View\View
      */
-    public function index(SearchDefine $search): View
+    public function index(Search $search): View
     {
         return view('admin.user.index', [
             'users' => $search->users(),

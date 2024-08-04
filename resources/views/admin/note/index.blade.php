@@ -6,8 +6,6 @@
             'routeCreate' => route('~note.create')
         ])
 
-
-
         <table class="mb-4 w-full caption-bottom text-sm responsive-table">
             <thead class="[&_tr]:border-b">
                 <tr

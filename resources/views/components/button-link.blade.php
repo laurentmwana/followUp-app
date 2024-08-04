@@ -1,6 +1,6 @@
 
 @props([
-    'variant' => 'default'
+    'variant' => 'secondary'
 ])
 
 @php
@@ -11,6 +11,6 @@
 @endphp
 
 
-<a {{ $attributes->merge(['class' => $variants[$variant] ?? $variants['default']]) }}>
+<a {{ $attributes->merge(['class' => $variants[$variant] ?? $variants['secondary']]) }}>
     {{ $slot }}
 </a>

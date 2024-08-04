@@ -2,6 +2,7 @@
 
 use App\Models\Year;
 use App\Models\Course;
+use App\Models\Group;
 use App\Models\Student;
 use App\Models\Semester;
 use Illuminate\Support\Facades\Schema;
@@ -18,13 +19,18 @@ return new class extends Migration
         Schema::create('notes', function (Blueprint $table) {
             $table->id();
             $table->float('note');
-
+            $table->float('note_ponderation');
             $table->foreignIdFor(Year::class)
                 ->constrained()
                 ->cascadeOnDelete()
                 ->cascadeOnUpdate();
 
             $table->foreignIdFor(Semester::class)
+                ->constrained()
+                ->cascadeOnDelete()
+                ->cascadeOnUpdate();
+
+            $table->foreignIdFor(Group::class)
                 ->constrained()
                 ->cascadeOnDelete()
                 ->cascadeOnUpdate();

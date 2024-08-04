@@ -1,8 +1,11 @@
 <?php
 
+use App\Models\Group;
+use App\Models\Level;
 use App\Models\Course;
-use App\Models\Semester;
 use App\Models\Student;
+use App\Models\Semester;
+use App\Models\Programme;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
@@ -22,21 +25,15 @@ return new class extends Migration
                 ->constrained()
                 ->cascadeOnDelete()
                 ->cascadeOnUpdate();
+            $table->foreignIdFor(Programme::class)
+                ->constrained()
+                ->cascadeOnDelete()
+                ->cascadeOnUpdate();
+            $table->foreignIdFor(Group::class)
+                ->constrained()
+                ->cascadeOnDelete()
+                ->cascadeOnUpdate();
             $table->timestamps();
-        });
-
-        Schema::create('course_student', function (Blueprint $table) {
-            $table->foreignIdFor(Course::class)
-                ->constrained()
-                ->cascadeOnDelete()
-                ->cascadeOnUpdate();
-
-            $table->foreignIdFor(Student::class)
-                ->constrained()
-                ->cascadeOnDelete()
-                ->cascadeOnUpdate();
-
-            $table->primary(['course_id', 'student_id']);
         });
     }
 

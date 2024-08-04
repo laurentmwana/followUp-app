@@ -4,7 +4,7 @@ namespace App\Generator;
 
 abstract class Token
 {
-    public static function token(int $lenght = 4): string
+    public static function generate(int $lenght = 4): string
     {
         $alphabet = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
 

@@ -27,11 +27,6 @@
                         Promotion
                     </th>
                     <th
-                    class="h-10 px-2 text-left align-middle font-medium text-muted-foreground [&:has([role=checkbox])]:pr-0 [&>[role=checkbox]]:translate-y-[2px]"
-                >
-                    Cours
-                </th>
-                    <th
                         class="h-10 px-2 text-left align-middle font-medium text-muted-foreground [&:has([role=checkbox])]:pr-0 [&>[role=checkbox]]:translate-y-[2px]"
                     >
                         Créer
@@ -59,17 +54,13 @@
                     </a>
                 </td>
 
+
+
                     <td
                         class="p-2 align-middle [&:has([role=checkbox])]:pr-0 [&>[role=checkbox]]:translate-y-[2px]"
                     >
                         <a href="{{ route('~level.show', $student->level->id) }}" class="hover:underline">
-                            {{ $student->level->name }}
                         </a>
-                    </td>
-                    <td
-                        class="p-2 align-middle [&:has([role=checkbox])]:pr-0 [&>[role=checkbox]]:translate-y-[2px]"
-                    >
-                        {{ $student->courses()->count() }}
                     </td>
                     <td
                         class="p-2 align-middle [&:has([role=checkbox])]:pr-0 [&>[role=checkbox]]:translate-y-[2px]"

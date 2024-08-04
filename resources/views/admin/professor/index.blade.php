@@ -29,12 +29,7 @@
                 <th
                     class="h-10 px-2 text-left align-middle font-medium text-muted-foreground [&:has([role=checkbox])]:pr-0 [&>[role=checkbox]]:translate-y-[2px]"
                 >
-                    Département
-                </th>
-                    <th
-                    class="h-10 px-2 text-left align-middle font-medium text-muted-foreground [&:has([role=checkbox])]:pr-0 [&>[role=checkbox]]:translate-y-[2px]"
-                >
-                    Cours
+                Nombre de cours
                 </th>
                     <th
                         class="h-10 px-2 text-left align-middle font-medium text-muted-foreground [&:has([role=checkbox])]:pr-0 [&>[role=checkbox]]:translate-y-[2px]"
@@ -71,18 +66,10 @@
                     {{ $professor->sex }}
                 </a>
             </td>
-
                     <td
                         class="p-2 align-middle [&:has([role=checkbox])]:pr-0 [&>[role=checkbox]]:translate-y-[2px]"
                     >
-                        <a href="{{ route('~department.show', $professor->department->id) }}" class="hover:underline">
-                            {{ $professor->department->name }}
-                        </a>
-                    </td>
-                    <td
-                        class="p-2 align-middle [&:has([role=checkbox])]:pr-0 [&>[role=checkbox]]:translate-y-[2px]"
-                    >
-                        {{ $professor->courses()->count() }}
+                        {{ $professor->courses->count() }}
                     </td>
                     <td
                         class="p-2 align-middle [&:has([role=checkbox])]:pr-0 [&>[role=checkbox]]:translate-y-[2px]"

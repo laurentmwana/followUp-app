@@ -44,16 +44,6 @@ class ProfessorRequest extends FormRequest
             'sex' => [
                 'required',
             ],
-            'email' => [
-                'required',
-                'string',
-                (new Unique(Professor::class))->ignore($id),
-                'max:255'
-            ],
-            'department_id' => [
-                'required',
-                'exists:departments,id',
-            ],
         ];
     }
 }
