@@ -32,4 +32,20 @@ class Semester extends Model
     {
         return $this->hasMany(Group::class);
     }
+
+    public function deliberations(): HasMany
+    {
+        return $this->hasMany(Deliberation::class);
+    }
+
+    public function redos(): HasMany
+    {
+        return $this->hasMany(Redo::class);
+    }
+
+
+    public function capitalizes(): HasMany
+    {
+        return $this->hasMany(Capitalize::class);
+    }
 }

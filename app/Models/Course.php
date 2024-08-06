@@ -50,4 +50,14 @@ class Course extends Model
     {
         return $this->hasMany(Note::class);
     }
+
+    public function redos(): HasMany
+    {
+        return $this->hasMany(Redo::class);
+    }
+
+    public function capitalizes(): HasMany
+    {
+        return $this->hasMany(Capitalize::class);
+    }
 }

@@ -18,11 +18,12 @@ return new class extends Migration
         Schema::create('deliberations', function (Blueprint $table) {
             $table->id();
             $table->float('pourcent');
-            $table->float('moy_category_a')->default(0);
-            $table->float('moy_category_b')->default(0);
+            $table->float('mca')->default(0);
+            $table->float('mcb')->default(0);
+            $table->float('mab')->default(0);
             $table->float('total');
-            $table->float('total_note');
-            $table->float('total_pond');
+            $table->float('tn');
+            $table->float('tnp');
             $table->foreignIdFor(Year::class)
                 ->constrained()
                 ->cascadeOnDelete()

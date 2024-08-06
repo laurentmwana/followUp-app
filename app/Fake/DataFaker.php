@@ -1,5 +1,6 @@
 <?php
 
+
 namespace App\Fake;
 
 use App\Models\Note;
@@ -12,10 +13,12 @@ use App\Models\Option;
 use App\Enums\RoleEnum;
 use App\Models\Faculty;
 use App\Models\Student;
+use App\Generator\Token;
 use App\Models\Category;
 use App\Models\Semester;
 use App\Models\Professor;
 use App\Models\Programme;
+use Illuminate\Support\Str;
 use App\Models\Deliberation;
 
 abstract class DataFaker
@@ -59,49 +62,56 @@ abstract class DataFaker
         ]);
 
         // Create years
-        for ($i = 2021; $i <= 2023; $i++) {
-            Year::factory()->create([
-                'start' => $i,
-                'end' => $i + 1,
-                'state' => $i === 2023 ? 0 : 1,
-            ]);
-        }
+        $years = Year::factory()->createMany([
+            ['start' => 2021, 'end' => 2022, 'state' => 1],
+            ['start' => 2022, 'end' => 2023, 'state' => 0],
+        ]);
 
         // Create options and programmes
         $department->options()->createMany(self::OPTIONS);
 
         Programme::factory()->createMany(self::PROGRAMMES);
 
-        $students = Student::factory(4)->create()->each(function (Student $student) {
+        Category::factory()->createMany([
+            ['name' => 'A'],
+            ['name' => 'B'],
+        ]);
+
+        $start = 1;
+        $end = 2;
+        foreach (Programme::all() as $programme) {
+
+            for ($i = $start; $i <= $end; $i++) {
+                $programme->semesters()->create([
+                    'name' => "Semestre {$i}", 'alias' => "S{$i}",
+                ]);
+            }
+            $start = $end + 1;
+            $end += 2;
+        }
+
+
+        Programme::find(1)->levels()->create([
+            'option_id' => Option::find(1)->id,
+            'year_id' => Year::find(1)->id,
+        ]);
+
+        Programme::find(2)->levels()->create([
+            'option_id' => Option::find(3)->id,
+            'year_id' => Year::find(2)->id,
+        ]);
+
+        Professor::factory(5)->create();
+
+        Student::factory(2)->create()->each(function (Student $student) {
             User::factory()->create([
+                'role' => ROleEnum::ROLE_STUDENT->value,
                 'student_id' => $student->id,
-                'role' => RoleEnum::ROLE_STUDENT->value,
             ]);
         });
 
-        Category::factory()->createMany([
-            ['name' => 'A'],
-            ['name' => 'B',],
-        ]);
-
-        foreach (Year::where('id', '!=', 3)->get() as $year) {
-
-            $levels[] = $year->levels()->create([
-                'programme_id'  => Programme::find(1)->id,
-                'option_id' => Option::find(1)->id,
-            ]);
-
-            foreach (Option::where('id', '>', 1)->get() as $o) {
-                $levels[] = $year->levels()->create([
-                    'programme_id'  => Programme::find(2)->id,
-                    'option_id' => $o->id,
-                ]);
-            }
+        foreach (Student::all() as $student) {
+            $student->levels()->sync(Level::pluck('id'));
         }
-
-        foreach (Level::where())
-
-
-
     }
 }

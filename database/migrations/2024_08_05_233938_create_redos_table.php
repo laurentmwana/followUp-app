@@ -1,8 +1,6 @@
 <?php
 
-use App\Models\Year;
 use App\Models\Course;
-use App\Models\Group;
 use App\Models\Student;
 use App\Models\Semester;
 use Illuminate\Support\Facades\Schema;
@@ -16,35 +14,20 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('notes', function (Blueprint $table) {
+        Schema::create('redos', function (Blueprint $table) {
             $table->id();
-            $table->float('note');
-            $table->float('np');
-            $table->foreignIdFor(Year::class)
-                ->constrained()
-                ->cascadeOnDelete()
-                ->cascadeOnUpdate();
-
-            $table->foreignIdFor(Semester::class)
-                ->constrained()
-                ->cascadeOnDelete()
-                ->cascadeOnUpdate();
-
-            $table->foreignIdFor(Group::class)
-                ->constrained()
-                ->cascadeOnDelete()
-                ->cascadeOnUpdate();
-
             $table->foreignIdFor(Course::class)
                 ->constrained()
                 ->cascadeOnDelete()
                 ->cascadeOnUpdate();
-
+            $table->foreignIdFor(Semester::class)
+                ->constrained()
+                ->cascadeOnDelete()
+                ->cascadeOnUpdate();
             $table->foreignIdFor(Student::class)
                 ->constrained()
                 ->cascadeOnDelete()
                 ->cascadeOnUpdate();
-
             $table->timestamps();
         });
     }
@@ -54,6 +37,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('notes');
+        Schema::dropIfExists('redos');
     }
 };

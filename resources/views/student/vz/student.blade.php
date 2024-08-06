@@ -1,8 +1,14 @@
 <div class="flex flex-col gap-3">
     <x-card>
-        <h2 class="text-base font-semibold text-gray-700 dark:text-muted-foreground mb-2">
-            {{ $student->name }} {{ $student->firstname }}
-        </h2>
+        <div class="flex items-center justify-between gap-3">
+            <h2 class="text-base font-semibold text-gray-700 dark:text-muted-foreground mb-2">
+                {{ $student->name }} {{ $student->firstname }}
+            </h2>
+
+            <div>
+                #{{ $student->id }}
+            </div>
+        </div>
     </x-card>
 
     @foreach ($student->levels as $level)
@@ -51,7 +57,6 @@
                 </th>
                 <th
                     class="h-10 px-2 text-left align-middle font-medium text-muted-foreground [&:has([role=checkbox])]:pr-0 [&>[role=checkbox]]:translate-y-[2px]">
-                    Cote avec pondération
                 </th>
             </tr>
         </thead>
@@ -69,18 +74,48 @@
                 </td>
 
                 <td class="p-2 align-middle [&:has([role=checkbox])]:pr-0 [&>[role=checkbox]]:translate-y-[2px]">
-                    {{ $note->note }}
+                    @if (okNote($note->note))
+                    <span class="text-green-500">
+                        {{ $note->note }}
+                    </span>
+                    @else
+                    <span class="text-red-500">
+                        {{ $note->note }}
+                    </span>
+                    @endif
+                    /20
                 </td>
                 <td class="p-2 align-middle [&:has([role=checkbox])]:pr-0 [&>[role=checkbox]]:translate-y-[2px]">
-                    {{ $note->note_ponderation }}
+                    @php
+                    $tnp = $note->course->credits * 20;
+                    @endphp
+                    @if (okNote($note->np, $tnp / 2, $tnp))
+                    <span class="text-green-500">
+                        {{ $note->np }}
+                    </span>
+                    @else
+                    <span class="text-red-500">
+                        {{ $note->np }}
+                    </span>
+                    @endif
+                    / {{ $tnp }}
                 </td>
             </tr>
             @endforeach
+
+            @include('student.vz.total', [
+            'notes' => $group->notes,
+            ])
         </tbody>
     </table>
 
     @endif
     @endforeach
+
+    @include('student.vz.delibe', [
+    'delibes' => $semester->deliberations,
+    'semesterId' => $semester
+    ])
 
     @include('shared.separator', [
     'class' => 'my-3'

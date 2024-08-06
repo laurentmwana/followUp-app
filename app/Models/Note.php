@@ -10,6 +10,16 @@ class Note extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'group_id',
+        'semester_id',
+        'note',
+        'course_id',
+        'student_id',
+        'year_id',
+        'np',
+    ];
+
     public function student(): BelongsTo
     {
         return $this->belongsTo(Student::class);
