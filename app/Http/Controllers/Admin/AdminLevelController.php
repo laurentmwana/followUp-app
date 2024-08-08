@@ -3,8 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Level;
-use Illuminate\Http\Request;
+use App\Search\Filter;
 use App\Search\Search;
+use Illuminate\Http\Request;
 use Illuminate\Contracts\View\View;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
@@ -17,10 +18,10 @@ class AdminLevelController extends Controller
      * @param \App\Search\Search $search
      * @return \Illuminate\Contracts\View\View
      */
-    public function index(Search $search): View
+    public function index(Filter $filter): View
     {
         return view('admin.level.index', [
-            'levels' => $search->levels(),
+            'levels' => $filter->levels(),
         ]);
     }
 

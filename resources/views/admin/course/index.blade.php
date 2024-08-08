@@ -69,7 +69,11 @@
 
                     <td class="p-2 align-middle [&:has([role=checkbox])]:pr-0 [&>[role=checkbox]]:translate-y-[2px]">
                         @include('shared.action', [ 'routeEdit' =>
-                        route('~course.edit', $course), 'routeDestroy' =>
+                        route('~course.edit', [
+                        'course' => $course,
+                        'programme' => $course->semester->programme_id,
+                        'semester' => $course->semester_id,
+                        ]), 'routeDestroy' =>
                         route('~course.destroy', $course), ])
                     </td>
                 </tr>

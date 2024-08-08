@@ -69,13 +69,10 @@ class VisualizationController extends Controller
             return $query->where('student_id', '=', $studentId);
         };
 
-        $programmes = Programme::with(['semesters'])->get();
-
         $years = Year::orderByDesc('state')->simplePaginate();
 
         return view('student.vz.index', [
             'years' => $years,
-            'programmes' => $programmes,
             'student' => $student,
         ]);
     }

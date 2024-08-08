@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Admin;
 
+use App\Query\QueryYear;
 use Illuminate\Foundation\Http\FormRequest;
 
 class NoteRequest extends FormRequest
@@ -24,6 +25,8 @@ class NoteRequest extends FormRequest
         return [
             'note' => [
                 'required',
+                'numeric',
+                'between:0,20'
             ],
 
             'student_id' => [
@@ -40,6 +43,17 @@ class NoteRequest extends FormRequest
                 'required',
                 'exists:semesters,id'
             ],
+            'year_id' => [
+                'required',
+                'exists:semesters,id'
+            ],
         ];
+    }
+
+    public function prepareForValidation()
+    {
+        $this->merge([
+            'year_id' => QueryYear::currentYear()->id,
+        ]);
     }
 }

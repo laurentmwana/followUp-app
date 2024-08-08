@@ -37,17 +37,8 @@ class CourseRequest extends FormRequest
                 'numeric',
             ],
             'description' => [
-                'string',
-                'between:10,5000',
+                'max:5000',
             ],
-            'levels' => [
-                'array',
-            ],
-
-            'students' => [
-                'array'
-            ],
-
             'professor_id' => [
                 'required',
                 'exists:professors,id'
@@ -61,13 +52,5 @@ class CourseRequest extends FormRequest
                 'exists:groups,id'
             ],
         ];
-    }
-
-    public function prepareForValidation()
-    {
-        $this->merge([
-            'levels' => $this->input('levels', []),
-            'students' => $this->input('students', []),
-        ]);
     }
 }

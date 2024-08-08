@@ -3,13 +3,13 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Course;
-use Illuminate\Http\Request;
 use App\Search\Search;
+use App\Models\Semester;
+use Illuminate\Http\Request;
 use Illuminate\Contracts\View\View;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\Admin\CourseRequest;
-use App\Http\Requests\Admin\StudentRequest;
 
 class AdminCourseController extends Controller
 {
@@ -46,17 +46,7 @@ class AdminCourseController extends Controller
      */
     public function store(CourseRequest $request): RedirectResponse
     {
-        $course = Course::create([
-            'name' => $request->validated('name'),
-            'credits' => $request->validated('credits'),
-            'description' => $request->validated('description'),
-            'professor_id' => $request->validated('professor_id'),
-            'semester_id' => $request->validated('semester_id'),
-            'group_id' => $request->validated('group_id'),
-        ]);
-
-        $course->levels()->sync($request->validated('levels'));
-        $course->students()->sync($request->validated('students'));
+        Course::create($request->validated());
 
         return redirect()->route('~course.index')
             ->with('success', 'cours ajouté');
@@ -98,17 +88,7 @@ class AdminCourseController extends Controller
      */
     public function update(CourseRequest $request, Course $course): RedirectResponse
     {
-        $course->update([
-            'name' => $request->validated('name'),
-            'credits' => $request->validated('credits'),
-            'description' => $request->validated('description'),
-            'professor_id' => $request->validated('professor_id'),
-            'semester_id' => $request->validated('semester_id'),
-            'group_id' => $request->validated('group_id'),
-        ]);
-
-        $course->levels()->sync($request->validated('levels'));
-        $course->students()->sync($request->validated('students'));
+        $course->update($request->validated());
 
         return redirect()->route('~course.index')
             ->with('success', 'cours modifiée');

@@ -11,6 +11,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\Admin\DeanRequest;
 use App\Http\Requests\Admin\NoteRequest;
+use App\Models\Course;
 
 class AdminNoteController extends Controller
 {
@@ -42,10 +43,22 @@ class AdminNoteController extends Controller
      */
     public function store(NoteRequest $request): RedirectResponse
     {
-        Note::create($request->validated());
+        $course = Course::find($request->validated('course_id'));
+
+        $note = $request->validated('note');
+        $np = (float)$note * $course->credits;
+
+        $course->notes()->create([
+            'note' => $note,
+            'np' => $np,
+            'group_id' => $course->group_id,
+            'semester_id' => $course->semester_id,
+            'student_id' => $request->validated('student_id'),
+            'year_id' => $request->validated('year_id'),
+        ]);
 
         return redirect()->route('~note.index')
-            ->with('success', 'coordinator ajouté');
+            ->with('success', 'note ajouté');
     }
 
 
@@ -61,7 +74,6 @@ class AdminNoteController extends Controller
             'note' => $note
         ]);
     }
-
 
     /**
      *Permet d'afficher un formulaire d'edition d'une note
@@ -83,10 +95,22 @@ class AdminNoteController extends Controller
      */
     public function update(NoteRequest $request, Note $note): RedirectResponse
     {
-        $note->update($request->validated());
+        $course = Course::find($request->validated('course_id'));
+
+        $n = $request->validated('note');
+        $np = (float)$n * $course->credits;
+
+        $note->update([
+            'note' => $n,
+            'np' => $np,
+            'group_id' => $course->group_id,
+            'semester_id' => $course->semester_id,
+            'student_id' => $request->validated('student_id'),
+            'year_id' => $request->validated('year_id'),
+        ]);
 
         return redirect()->route('~note.index')
-            ->with('success', 'note modifié');
+            ->with('success', 'note modifiée');
     }
 
     /**

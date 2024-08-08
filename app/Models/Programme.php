@@ -21,9 +21,4 @@ class Programme extends Model
     {
         return $this->hasMany(Level::class);
     }
-
-    public function courses(): HasMany
-    {
-        return $this->hasMany(Course::class);
-    }
 }

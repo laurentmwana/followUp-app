@@ -13,9 +13,9 @@ abstract class QueryYear
      */
     public static function currentYear(): Year
     {
-        return Year::whereState(1)
-            ->orderDescBy('created_at')
-            ->orderDescBy('updated_at')
+        return Year::whereState(0)
+            ->orderByDesc('created_at')
+            ->orderByDesc('updated_at')
             ->first();
     }
 }

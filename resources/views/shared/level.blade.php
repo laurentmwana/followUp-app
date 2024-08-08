@@ -2,6 +2,8 @@
 $routeName ??= '^vz.index';
 $routeParams ??= [];
 
+$currentYear = currentYear();
+
 $programmeId = request()->query->get('programme');
 $semesterId = request()->query->get('semester');
 
@@ -40,4 +42,13 @@ $programmes = \App\Models\Programme::with(['semesters'])->get();
     </a>
     @endif
     @endforeach
+</div>
+
+<div class="flex flex-col gap-2">
+    <div>
+
+    </div>
+    <div>
+
+    </div>
 </div>

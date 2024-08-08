@@ -69,22 +69,6 @@ class Search
             ->paginate();
     }
 
-
-    public function levels(): LengthAwarePaginator
-    {
-        $query = $this->request->query->get('query');
-
-        return $query === null
-            ? Level::with(['option', 'programme', 'year'])
-            ->orderByDesc('updated_at')
-            ->paginate()
-            : Level::with(['option', 'programme', 'year'])
-            ->where('name', 'like', "%$query%")
-            ->orderByDesc('updated_at')
-            ->paginate();
-    }
-
-
     public function students(): LengthAwarePaginator
     {
         $query = $this->request->query->get('query');
@@ -97,7 +81,7 @@ class Search
             ->where('name', 'like', "%$query%")
             ->orWhere('firstname', 'like', "%$query%")
             ->orWhere('phone', 'like', "%$query%")
-            // ->orWhere('happy', 'like', "%$query%")
+            ->orWhere('happy', 'like', "%$query%")
             ->orderByDesc('updated_at')
             ->paginate();
     }

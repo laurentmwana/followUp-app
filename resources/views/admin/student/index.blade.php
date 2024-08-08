@@ -19,6 +19,14 @@
                     </th>
                     <th
                         class="h-10 px-2 text-left align-middle font-medium text-muted-foreground [&:has([role=checkbox])]:pr-0 [&>[role=checkbox]]:translate-y-[2px]">
+                        Sexe
+                    </th>
+                    <th
+                        class="h-10 px-2 text-left align-middle font-medium text-muted-foreground [&:has([role=checkbox])]:pr-0 [&>[role=checkbox]]:translate-y-[2px]">
+                        Téléphone
+                    </th>
+                    <th
+                        class="h-10 px-2 text-left align-middle font-medium text-muted-foreground [&:has([role=checkbox])]:pr-0 [&>[role=checkbox]]:translate-y-[2px]">
                         Promotion
                     </th>
                     <th
@@ -41,12 +49,24 @@
                             {{ $student->firstname }}
                         </a>
                     </td>
+                    <td class="p-2 align-middle [&:has([role=checkbox])]:pr-0 [&>[role=checkbox]]:translate-y-[2px]">
+                        <a href="{{ route('~student.show', $student) }}" class="hover:underline">
+                            {{ $student->sex }}
+                        </a>
+                    </td>
 
+                    <td class="p-2 align-middle [&:has([role=checkbox])]:pr-0 [&>[role=checkbox]]:translate-y-[2px]">
+                        <a href="{{ route('~student.show', $student) }}" class="hover:underline">
+                            {{ $student->phone }}
+                        </a>
+                    </td>
                     <td class="p-2 align-middle [&:has([role=checkbox])]:pr-0 [&>[role=checkbox]]:translate-y-[2px]">
                         <a href="{{ route('~student.show', $student) }}" class="hover:underline">
                             {{ $student->levels->count() }}
                         </a>
                     </td>
+
+
                     <td class="p-2 align-middle [&:has([role=checkbox])]:pr-0 [&>[role=checkbox]]:translate-y-[2px]">
                         @include('shared.ago', ['now' => $student->created_at])
                     </td>

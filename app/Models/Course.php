@@ -15,6 +15,7 @@ class Course extends Model
     protected $fillable = [
         'name',
         'credits',
+        'description',
         'semester_id',
         'programme_id',
         'group_id',
@@ -34,11 +35,6 @@ class Course extends Model
     public function semester(): BelongsTo
     {
         return $this->belongsTo(Semester::class);
-    }
-
-    public function programme(): BelongsTo
-    {
-        return $this->belongsTo(Programme::class);
     }
 
     public function level(): BelongsTo

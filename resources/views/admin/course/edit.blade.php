@@ -4,12 +4,8 @@
             Editer le cours #{{ $course->id }}
         </h2>
 
-        <div class="max-w-lg">
-            <x-card>
-                @include('admin.course._form', [
-                    'course' => $course,
-                ])
-            </x-card>
-           </div>
+        @include('admin.course._form', [
+        'course' => $course,
+        ])
     </x-container>
 </x-admin-layout>

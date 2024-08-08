@@ -7,8 +7,7 @@
         <div class="grid grid-cols-5 mt-5">
             <div class="col-span-2">
                 <div class="flex items-center gap-x-4">
-                    @include('shared.programme', [ 'programmes' => $programmes,
-                    ])
+                    @include('shared.programme')
                 </div>
             </div>
             <div class="col-span-3">

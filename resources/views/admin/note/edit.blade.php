@@ -4,12 +4,8 @@
             Editer la note #{{ $note->id }}
         </h2>
 
-        <div class="max-w-lg">
-            <x-card>
-                @include('admin.note._form', [
-                    'note' => $note,
-                ])
-            </x-card>
-           </div>
+        @include('admin.note._form', [
+        'note' => $note,
+        ])
     </x-container>
 </x-admin-layout>

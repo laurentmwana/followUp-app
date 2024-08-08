@@ -39,7 +39,7 @@ class StudentRequest extends FormRequest
                 'string',
                 'between:2,255',
             ],
-            'sexy' => [
+            'sex' => [
                 'required',
                 'string',
                 (new SexRule),
@@ -47,24 +47,13 @@ class StudentRequest extends FormRequest
             'phone' => [
                 'required',
                 'string',
+                (new Unique(Student::class))->ignore($id),
                 (new PhoneFormatRule),
             ],
             'happy' => [
                 'required',
                 'date_format:Y-m-d'
             ],
-            'levels' => [
-                'array',
-                'exists:levels,id'
-            ],
         ];
-    }
-
-
-    public function prepareForValidation()
-    {
-        $this->merge([
-            'levels' => $this->input('levels') ?: [],
-        ]);
     }
 }

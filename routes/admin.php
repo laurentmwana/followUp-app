@@ -17,6 +17,7 @@ use App\Http\Controllers\Admin\AdminDelibeController;
 use App\Http\Controllers\Admin\AdminProfessorController;
 use App\Http\Controllers\Admin\AdminDepartmentController;
 use App\Http\Controllers\Admin\AdminSemesterController;
+use App\Http\Controllers\Admin\AdminProgrammeController;
 
 Route::middleware(['auth', 'verified', 'admin'])
     ->group(function () {
@@ -54,6 +55,6 @@ Route::prefix('admin')->name('~')->middleware(['auth', 'verified', 'admin'])
         Route::post('deliberation', [AdminDelibeController::class, 'push'])
             ->name('delibe.push');
 
-        Route::get('semester', AdminSemesterController::class)
-            ->name('semester.index');
+        Route::get('programme-lmd', AdminProgrammeController::class)
+            ->name('lmd.index');
     });

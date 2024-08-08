@@ -4,6 +4,18 @@
             Tableau de bord
         </h2>
 
+        <div class="my-4 flex items-center gap-4">
+            <x-button-link href="{{ route('~lmd.index') }}">
+                Programme LMD
+            </x-button-link>
+            <x-button-link href="{{ route('~faculty.index') }}">
+                Faculté
+            </x-button-link>
+            <x-button-link href="{{ route('~department.index') }}">
+                Département
+            </x-button-link>
+        </div>
+
         <div class="mt-4">
             <div class="grid grid-cols-1 lg:xl:grid-cols-3 justify-between gap-3">
                 @include('admin.dashboard._card', [

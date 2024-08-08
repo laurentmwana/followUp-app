@@ -25,14 +25,12 @@ return new class extends Migration
                 ->constrained()
                 ->cascadeOnDelete()
                 ->cascadeOnUpdate();
-            $table->foreignIdFor(Programme::class)
-                ->constrained()
-                ->cascadeOnDelete()
-                ->cascadeOnUpdate();
             $table->foreignIdFor(Group::class)
                 ->constrained()
                 ->cascadeOnDelete()
                 ->cascadeOnUpdate();
+            $table->text('description')->nullable();
+
             $table->timestamps();
         });
     }
