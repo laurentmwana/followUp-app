@@ -2,15 +2,12 @@
 
 namespace Database\Factories;
 
-use Generator;
-use App\Generator\Token;
-use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Group>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Code>
  */
-class GroupFactory extends Factory
+class CodeFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -20,7 +17,7 @@ class GroupFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => Str::upper(Token::generate())
+            //
         ];
     }
 }

@@ -19,7 +19,7 @@ $semesterId = request()->query->get('semester');
 
             @if ($semesterId == $semester->id)
             <a href="{{ route($routeName, ['programme' => $programme->id, 'semester' => $semester->id]) }}"
-                class="relative w-full rounded-lg border border-indigo-300 px-4 py-3 text-sm [&>svg+div]:translate-y-[-3px] [&>svg]:absolute [&>svg]:left-4 [&>svg]:top-4 [&>svg]:text-foreground [&>svg~*]:pl-7 bg-indigo-500 text-gray-50 dark: text-gray-700">
+                class="relative w-full rounded-lg border border-indigo-300 px-4 py-3 text-sm [&>svg+div]:translate-y-[-3px] [&>svg]:absolute [&>svg]:left-4 [&>svg]:top-4 [&>svg]:text-foreground [&>svg~*]:pl-7 bg-indigo-500 dark:text-gray-700">
                 {{ $semester->alias }}
             </a>
             @else

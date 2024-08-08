@@ -90,13 +90,13 @@ class Search
         $query = $this->request->query->get('query');
 
         return $query === null
-            ? Student::with(['level'])
+            ? Student::with(['levels'])
             ->orderByDesc('updated_at')
             ->paginate()
             : Student::with(['level'])
             ->where('name', 'like', "%$query%")
             ->orWhere('firstname', 'like', "%$query%")
-            // ->orWhere('email', 'like', "%$query%")
+            ->orWhere('phone', 'like', "%$query%")
             // ->orWhere('happy', 'like', "%$query%")
             ->orderByDesc('updated_at')
             ->paginate();
@@ -169,23 +169,6 @@ class Search
             ->paginate();
     }
 
-    public function assistants(): LengthAwarePaginator
-    {
-        $query = $this->request->query->get('query');
-
-        return $query === null
-            ? Assistant::with(['courses', 'professors'])
-            ->orderByDesc('updated_at')
-            ->paginate()
-            : Assistant::with(['courses', 'professors'])
-            ->orderByDesc('updated_at')
-            ->where('name', 'like', "%$query%")
-            ->orWhere('firstname', 'like', "%$query%")
-            ->orWhere('sex', 'like', "%$query%")
-            ->orWhere('email', 'like', "%$query%")
-            ->orWhere('phone', 'like', "%$query%")
-            ->paginate();
-    }
 
     public function users(): LengthAwarePaginator
     {

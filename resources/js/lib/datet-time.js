@@ -1,7 +1,3 @@
-export const MINUTES = 60;
-export const HOURS = 60 * MINUTES;
-export const DAYS = 24 * HOURS;
-
 /**
  * @param {string | Date} date
  * @returns String
@@ -37,42 +33,4 @@ export const ago = (date) => {
     } else {
         return `il y a ${yearsDifference} an${yearsDifference > 1 ? "s" : ""}`;
     }
-};
-
-/**
- * @param {number} n
- * @returns {String}
- */
-const preffix = (n) => (n < 10 ? "0" + n : n);
-
-/**
- *
- * @param {string} start
- */
-export const countdown = (start) => {
-    // convertir la date qui est string en temps unix
-    const lauchDate = Date.parse(start) / 1000;
-    // on calcule la difference en seconde entre le 2 dates
-    const difference = lauchDate - Date.now() / 1000;
-    // on calcule le nombre de jour restant
-    const days = Math.floor(difference / DAYS);
-    // on calcule le nombre d'heure
-    const hours = Math.floor((difference % DAYS) / HOURS);
-    // on calcule le nombre de minute
-    const minutes = Math.floor((difference % HOURS) / MINUTES);
-    // on calcule le nombre de seconde
-    const seconds = Math.floor(difference % MINUTES);
-
-    const differences = {
-        days: preffix(days),
-        hours: preffix(hours),
-        minutes: preffix(minutes),
-        seconds: preffix(seconds),
-    };
-
-    if (difference <= 0) return null;
-
-    window.setTimeout(() => window.requestAnimationFrame(countdown), 1000);
-
-    return differences;
 };

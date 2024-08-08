@@ -4,6 +4,8 @@ namespace App\Http\Requests\Admin;
 
 use App\Helpers\Generator\GeneratorToken;
 use App\Models\Student;
+use App\Rules\PhoneFormatRule;
+use App\Rules\SexRule;
 use Illuminate\Validation\Rules\Unique;
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -31,40 +33,28 @@ class StudentRequest extends FormRequest
                 'required',
                 'string',
                 'between:2,255',
-                (new Unique(Student::class))->ignore($id),
             ],
             'firstname' => [
                 'required',
                 'string',
                 'between:2,255',
             ],
-            'lastname' => [
-                'required',
-                'string',
-                'between:2,255',
-            ],
-            'email' => [
-                'required',
-                'string',
-                'email',
-                (new Unique(Student::class))->ignore($id)
-            ],
             'sexy' => [
                 'required',
                 'string',
+                (new SexRule),
             ],
-            'token' => [
+            'phone' => [
                 'required',
-                'max:8',
-                'min:8',
-                (new Unique(Student::class))->ignore($id),
+                'string',
+                (new PhoneFormatRule),
             ],
             'happy' => [
                 'required',
                 'date_format:Y-m-d'
             ],
-            'level_id' => [
-                'required',
+            'levels' => [
+                'array',
                 'exists:levels,id'
             ],
         ];
@@ -74,7 +64,7 @@ class StudentRequest extends FormRequest
     public function prepareForValidation()
     {
         $this->merge([
-            'token' => $this->input('token') ?: GeneratorToken::token(8),
+            'levels' => $this->input('levels') ?: [],
         ]);
     }
 }

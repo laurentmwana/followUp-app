@@ -21,6 +21,7 @@ class StudentFactory extends Factory
             'firstname' => $this->faker->firstname,
             'phone' => $this->faker->phoneNumber,
             'sex' => 'M',
+            'happy' => $this->faker->dateTimeBetween()->format('Y-m-d'),
         ];
     }
 }

@@ -7,6 +7,7 @@
         <div class="grid grid-cols-5 mt-5">
             <div class="col-span-2">
                 <div class="flex items-center gap-x-4">
+                    @include('shared.year', [ 'years' => $years, ])
                     @include('shared.programme', [ 'programmes' => $programmes,
                     ])
                 </div>

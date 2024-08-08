@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('firstname');
             $table->string('phone')->unique();
+            $table->date('happy');
             $table->char('sex');
             $table->timestamps();
         });

@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Query\Builder;
 
 
-class VisualizationController extends Controller
+class GeneratorController extends Controller
 {
 
     /**
@@ -30,7 +30,6 @@ class VisualizationController extends Controller
 
         $programmeId = $request->query->get('programme');
         $semesterId = $request->query->get('semester');
-        $yearId = $request->query->get('year');
 
         $checkLevelSelect = function ($query) use ($programmeId) {
             if (null === $programmeId || empty($programmeId)) return $query;
@@ -50,8 +49,6 @@ class VisualizationController extends Controller
             return $query->whereIn('id', [$semesterId]);
         };
 
-
-
         $student = Student::with([
             'levels.year',
             'levels' => $checkLevelSelect,
@@ -63,17 +60,14 @@ class VisualizationController extends Controller
             'levels.programme.semesters.groups.category',
             'levels.programme.semesters.groups.notes.course',
             'levels.programme.semesters.groups.notes' => $checkStudentNote
-        ])->find($studentId);
-
-        $checkYear = function ($query) use ($studentId) {
-            return $query->where('student_id', '=', $studentId);
-        };
+        ])
+            ->find($studentId);
 
         $programmes = Programme::with(['semesters'])->get();
 
         $years = Year::orderByDesc('state')->simplePaginate();
 
-        return view('student.vz.index', [
+        return view('student.generate.index', [
             'years' => $years,
             'programmes' => $programmes,
             'student' => $student,

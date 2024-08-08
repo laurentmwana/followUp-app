@@ -2,8 +2,10 @@
 
 namespace App\Http\Requests\Admin;
 
+use App\Rules\SexRule;
 use App\Models\Professor;
 use App\Models\Department;
+use App\Rules\PhoneFormatRule;
 use Illuminate\Validation\Rules\Unique;
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -37,12 +39,16 @@ class ProfessorRequest extends FormRequest
                 'string',
                 'between:3,255'
             ],
-            'phone' => [
-                'required',
-                (new Unique(Professor::class))->ignore($id)
-            ],
             'sex' => [
                 'required',
+                'string',
+                (new SexRule),
+            ],
+            'phone' => [
+                'required',
+                'string',
+                (new PhoneFormatRule),
+                (new Unique(Professor::class))->ignore($id)
             ],
         ];
     }
