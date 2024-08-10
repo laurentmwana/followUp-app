@@ -74,34 +74,14 @@ class GeneratorSeeder extends Seeder
 
         foreach (Category::all() as $c) {
 
-            Group::factory(3)->create([
+            Group::factory()->create([
                 'category_id' => $c->id,
                 'semester_id' => Semester::find(1)->id,
             ]);
 
-            Group::factory(2)->create([
+            Group::factory()->create([
                 'category_id' => $c->id,
                 'semester_id' => Semester::find(2)->id,
-            ]);
-
-            Group::factory(3)->create([
-                'category_id' => $c->id,
-                'semester_id' => Semester::find(3)->id,
-            ]);
-
-            Group::factory(5)->create([
-                'category_id' => $c->id,
-                'semester_id' => Semester::find(4)->id,
-            ]);
-
-            Group::factory(6)->create([
-                'category_id' => $c->id,
-                'semester_id' => Semester::find(5)->id,
-            ]);
-
-            Group::factory(2)->create([
-                'category_id' => $c->id,
-                'semester_id' => Semester::find(6)->id,
             ]);
         }
 

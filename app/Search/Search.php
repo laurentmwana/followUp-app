@@ -92,10 +92,10 @@ class Search
         $query = $this->request->query->get('query');
 
         return $query === null
-            ? Group::with(['category'])
+            ? Group::with(['category', 'semester'])
             ->orderByDesc('updated_at')
             ->paginate()
-            : Group::with(['category'])
+            : Group::with(['category', 'semester'])
             ->where('name', 'like', "%$query%")
             ->orderByDesc('updated_at')
             ->paginate();
@@ -148,7 +148,10 @@ class Search
             ->paginate()
             : Note::with(['student', 'course', 'semester', 'year'])
             ->where('note', 'like', "%$query%")
-            ->orWhere('credits', 'like', "%$query%")
+            ->orWhere('course_id', 'like', "%$query%")
+            ->orWhere('year_id', 'like', "%$query%")
+            ->orWhere('semester_id', 'like', "%$query%")
+            ->orWhere('student_id', 'like', "%$query%")
             ->orderByDesc('updated_at')
             ->paginate();
     }

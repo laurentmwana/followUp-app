@@ -31,6 +31,12 @@ class Note extends Model
         return $this->belongsTo(Year::class);
     }
 
+
+    public function group(): BelongsTo
+    {
+        return $this->belongsTo(Group::class);
+    }
+
     public function course(): BelongsTo
     {
         return $this->belongsTo(Course::class);

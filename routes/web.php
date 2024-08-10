@@ -14,4 +14,6 @@ require __DIR__ . '/student.php';
 
 require __DIR__ . '/admin.php';
 
+require __DIR__ . '/delibe.php';
+
 require __DIR__ . '/basic.php';

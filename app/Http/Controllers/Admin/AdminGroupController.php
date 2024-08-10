@@ -9,7 +9,6 @@ use App\Search\Search;
 use Illuminate\Contracts\View\View;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
-use App\Http\Requests\Admin\DeanRequest;
 use App\Http\Requests\Admin\GroupRequest;
 
 class AdminGroupController extends Controller

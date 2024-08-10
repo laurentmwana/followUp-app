@@ -11,6 +11,12 @@ class Group extends Model
 {
     use HasFactory;
 
+    protected $fillable  = [
+        'name',
+        'category_id',
+        'semester_id'
+    ];
+
     public function category(): BelongsTo
     {
         return $this->belongsTo(Category::class);

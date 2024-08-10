@@ -16,6 +16,7 @@ class Deliberation extends Model
         'year_id',
         'mca',
         'mcb',
+        'mab',
         'tn',
         'tnp',
         'pourcent',

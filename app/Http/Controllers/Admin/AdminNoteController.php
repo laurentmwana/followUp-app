@@ -15,6 +15,9 @@ use App\Models\Course;
 
 class AdminNoteController extends Controller
 {
+    public function __construct()
+    {
+    }
 
     public function index(Search $search): View
     {
@@ -57,7 +60,7 @@ class AdminNoteController extends Controller
             'year_id' => $request->validated('year_id'),
         ]);
 
-        return redirect()->route('~note.index')
+        return redirect()->back()
             ->with('success', 'note ajouté');
     }
 

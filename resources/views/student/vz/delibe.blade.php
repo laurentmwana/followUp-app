@@ -23,7 +23,15 @@
                 Moyenne totale du <strong>{{ $semester->name }} :</strong>
             </p>
             <p class="text-sm font-light">
-                {{ moy([$delibe->mcb, $delibe->mca]) }}
+                {{ $delibe->mab }}
+            </p>
+        </div>
+        <div class="flex items-center gap-3">
+            <p class="text-sm font-semibold">
+                Pourcentage :
+            </p>
+            <p class="text-sm font-light">
+                {{ $delibe->pourcent }}%
             </p>
         </div>
     </div>

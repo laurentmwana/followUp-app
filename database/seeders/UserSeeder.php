@@ -21,7 +21,7 @@ class UserSeeder extends Seeder
             'name' => 'padoda',
         ]);
 
-        Student::factory(12)->create()->each(
+        Student::factory(2)->create()->each(
             fn (Student $student) => User::factory()
                 ->create(['student_id' => $student->id])
         );

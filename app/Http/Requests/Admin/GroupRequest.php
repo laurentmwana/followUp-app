@@ -36,6 +36,10 @@ class GroupRequest extends FormRequest
                 'required',
                 'exists:categories,id',
             ],
+            'semester_id' => [
+                'required',
+                'exists:semesters,id',
+            ],
         ];
     }
 }

@@ -39,8 +39,6 @@ class Student extends Model
         return $this->hasMany(Redo::class);
     }
 
-
-
     public function capitalizes(): HasMany
     {
         return $this->hasMany(Capitalize::class);

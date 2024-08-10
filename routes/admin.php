@@ -3,7 +3,6 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\AdminNoteController;
 use App\Http\Controllers\Admin\AdminUserController;
-use App\Http\Controllers\Admin\AdminYearController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\AdminGroupController;
 use App\Http\Controllers\Admin\AdminLevelController;
@@ -12,12 +11,9 @@ use App\Http\Controllers\Admin\AdminOptionController;
 use App\Http\Controllers\Admin\AdminFacultyController;
 use App\Http\Controllers\Admin\AdminStudentController;
 use App\Http\Controllers\Admin\AdminCategoryController;
-use App\Http\Controllers\Admin\AdminAssistantController;
-use App\Http\Controllers\Admin\AdminDelibeController;
 use App\Http\Controllers\Admin\AdminProfessorController;
-use App\Http\Controllers\Admin\AdminDepartmentController;
-use App\Http\Controllers\Admin\AdminSemesterController;
 use App\Http\Controllers\Admin\AdminProgrammeController;
+use App\Http\Controllers\Admin\AdminDepartmentController;
 
 Route::middleware(['auth', 'verified', 'admin'])
     ->group(function () {
@@ -49,11 +45,6 @@ Route::prefix('admin')->name('~')->middleware(['auth', 'verified', 'admin'])
             ->name('category.index');
 
         Route::resource('note', AdminNoteController::class);
-
-        Route::get('deliberation', [AdminDelibeController::class, 'index'])
-            ->name('delibe.index');
-        Route::post('deliberation', [AdminDelibeController::class, 'push'])
-            ->name('delibe.push');
 
         Route::get('programme-lmd', AdminProgrammeController::class)
             ->name('lmd.index');
