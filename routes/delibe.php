@@ -1,21 +1,23 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Admin\Delibe\DelibeBasicController;
-use App\Http\Controllers\Admin\Delibe\AdminChoiceTargetDelibeController;
+use App\Http\Controllers\Admin\Delibe\AdminNewDeliberationController;
+use App\Http\Controllers\Admin\Delibe\AdminDelibeTargetController;
 use App\Http\Controllers\Admin\Delibe\BasicVisualizationController;
+use App\Http\Controllers\Admin\Delibe\AdminDeliberationController;
 
 Route::prefix('admin')->name('~')->middleware(['auth', 'verified', 'admin'])
     ->group(function () {
 
-        Route::get('deliberation-choice', AdminChoiceTargetDelibeController::class)
+        Route::get('deliberation', [AdminDeliberationController::class, 'index'])
             ->name('delibe.index');
 
-        Route::post('delibe-basic', DelibeBasicController::class)
-            ->name('basic');
+        Route::get('deliberation/{id}', [AdminDeliberationController::class, 'show'])
+            ->name('delibe.show');
 
-        Route::get('deliberation-basic', [BasicVisualizationController::class, 'index'])
-            ->name('basic.index');
-        Route::get('deliberation-basic/{id}', [BasicVisualizationController::class, 'show'])
-            ->name('basic.show');
+        Route::get('new-deliberation', AdminDelibeTargetController::class)
+            ->name('delibe.new');
+
+        Route::post('deliberation/create-basic', AdminNewDeliberationController::class)
+            ->name('basic');
     });

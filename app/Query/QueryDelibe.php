@@ -2,6 +2,8 @@
 
 namespace App\Query;
 
+use App\Enums\DecisionEnum;
+use App\Models\Decision;
 use App\Models\Level;
 use App\Models\Semester;
 
@@ -26,10 +28,17 @@ abstract class QueryDelibe
         return Level::with([
             'students',
             'students.notes',
+            'deliberations',
+            'deliberations.deliberateds',
             'students.notes.group',
             'students.notes.student',
         ])->whereProgrammeId($programmeId)
             ->whereYearId($yearId)
             ->first();
+    }
+
+    public static function decision(float|int $pourcent): string
+    {
+        return "";
     }
 }

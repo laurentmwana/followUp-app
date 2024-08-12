@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Enums\DecisionEnum;
 use App\Models\Code;
 use App\Models\Year;
 use App\Models\Group;
@@ -9,6 +10,7 @@ use App\Models\Level;
 use App\Models\Option;
 use App\Models\Faculty;
 use App\Models\Category;
+use App\Models\Decision;
 use App\Models\Semester;
 use App\Models\Professor;
 use App\Models\Programme;
@@ -85,7 +87,7 @@ class GeneratorSeeder extends Seeder
             ]);
         }
 
-        Professor::factory(12)->create();
+        Professor::factory(3)->create();
 
         Year::factory()->createMany([
             ['start' => 2021, 'end' => 2022, 'state' => 0],

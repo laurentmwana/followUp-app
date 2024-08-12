@@ -6,6 +6,8 @@ use App\Models\Year;
 use App\Models\Student;
 use App\Models\Programme;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Contracts\View\View;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -20,7 +22,7 @@ class VisualizationController extends Controller
      * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Contracts\View\View
      */
-    public function __invoke(Request $request): View
+    public function __invoke(Request $request): View | Response
     {
         $studentId = Auth::user()->student_id;
 
@@ -38,11 +40,7 @@ class VisualizationController extends Controller
         };
 
         $checkDelibe = function ($query) use ($semesterId, $studentId) {
-            return (null === $semesterId || empty($semesterId))
-                ? $query->where('student_id', '=', $studentId)
-                : $query
-                ->where('student_id', '=', $studentId)
-                ->where('semester_id', '=', $semesterId);
+            return $query->where('student_id', '=', $studentId);
         };
 
         $checkSemester = function ($query) use ($semesterId) {
@@ -50,26 +48,33 @@ class VisualizationController extends Controller
             return $query->whereIn('id', [$semesterId]);
         };
 
-
-
         $student = Student::with([
             'levels.year',
             'levels' => $checkLevelSelect,
             'levels.programme',
             'levels.option',
             'levels.programme.semesters' => $checkSemester,
-            'levels.programme.semesters.deliberations' => $checkDelibe,
+            'levels.programme.semesters.deliberations',
+            'levels.programme.semesters.deliberations.deliberateds' => $checkDelibe,
             'levels.programme.semesters.groups',
             'levels.programme.semesters.groups.category',
             'levels.programme.semesters.groups.notes.course',
             'levels.programme.semesters.groups.notes' => $checkStudentNote
         ])->find($studentId);
 
-        $checkYear = function ($query) use ($studentId) {
-            return $query->where('student_id', '=', $studentId);
-        };
+        // $checkYear = function ($query) use ($studentId) {
+        //     return $query->where('student_id', '=', $studentId);
+        // };
 
         $years = Year::orderByDesc('state')->simplePaginate();
+
+
+        // $pdf = Pdf::loadView('student.vz.index', [
+        //     'years' => $years,
+        //     'student' => $student,
+        // ]);
+
+        // return $pdf->download('invoice.pdf');
 
         return view('student.vz.index', [
             'years' => $years,

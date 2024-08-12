@@ -49,16 +49,20 @@ class DashboardController extends Controller
 
     private function getOrderDelibe(?string $levelId): array
     {
-        return (null === $levelId && empty($levelId))
-            ? [
-                'okStudent' => Deliberation::where('pourcent', '>', 49)->count('id'),
-                'failStudent' => Deliberation::where('pourcent', '<=', 49)->count('id'),
-            ]
-            : [
-                'okStudent' => Deliberation::whereLevelId($levelId)
-                    ->where('pourcent', '>', 49)->count('id'),
-                'failStudent' => Deliberation::whereLevelId($levelId)
-                    ->where('pourcent', '<=', 49)->count('id'),
-            ];
+        return [
+            'okStudent' => 12,
+            'failStudent' => 5
+        ];
+        // return (null === $levelId || empty($levelId))
+        //     ? [
+        //         'okStudent' => Deliberation::where('pourcent', '>', 49)->count('id'),
+        //         'failStudent' => Deliberation::where('pourcent', '<=', 49)->count('id'),
+        //     ]
+        //     : [
+        //         'okStudent' => Deliberation::whereLevelId($levelId)
+        //             ->where('pourcent', '>', 49)->count('id'),
+        //         'failStudent' => Deliberation::whereLevelId($levelId)
+        //             ->where('pourcent', '<=', 49)->count('id'),
+        //     ];
     }
 }

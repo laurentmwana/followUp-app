@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Constraint\NoteConstraint;
 use App\Models\Dean;
 use App\Models\Note;
 use App\Search\Search;
@@ -15,9 +16,7 @@ use App\Models\Course;
 
 class AdminNoteController extends Controller
 {
-    public function __construct()
-    {
-    }
+    public function __construct() {}
 
     public function index(Search $search): View
     {
@@ -47,6 +46,11 @@ class AdminNoteController extends Controller
     public function store(NoteRequest $request): RedirectResponse
     {
         $course = Course::find($request->validated('course_id'));
+
+        NoteConstraint::noCreateNoteForStudent(
+            $request->validated(),
+            $course
+        );
 
         $note = $request->validated('note');
         $np = (float)$note * $course->credits;
@@ -100,6 +104,8 @@ class AdminNoteController extends Controller
     {
         $course = Course::find($request->validated('course_id'));
 
+        NoteConstraint::hasNoteStudentExist($note);
+
         $n = $request->validated('note');
         $np = (float)$n * $course->credits;
 
@@ -110,6 +116,7 @@ class AdminNoteController extends Controller
             'semester_id' => $course->semester_id,
             'student_id' => $request->validated('student_id'),
             'year_id' => $request->validated('year_id'),
+            'course_id' => $course->id,
         ]);
 
         return redirect()->route('~note.index')
@@ -123,6 +130,8 @@ class AdminNoteController extends Controller
      */
     public function destroy(Note $note): RedirectResponse
     {
+        NoteConstraint::noDeleteNoteForStudent($note);
+
         $note->delete();
 
         return redirect()->route('~note.index')

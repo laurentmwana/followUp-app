@@ -13,7 +13,7 @@ class NotePolicy
     /**
      * Determine whether the user can view any models.
      */
-    public function viewAny(User $user): bool
+    public function viewAny(): bool
     {
         return true;
     }
@@ -21,7 +21,7 @@ class NotePolicy
     /**
      * Determine whether the user can view the model.
      */
-    public function view(User $user, Note $note): bool
+    public function view(): bool
     {
         return true;
     }
@@ -31,7 +31,7 @@ class NotePolicy
      */
     public function create(User $user): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -39,7 +39,7 @@ class NotePolicy
      */
     public function update(User $user, Note $note): bool
     {
-        return false;
+        return true;
     }
 
     /**

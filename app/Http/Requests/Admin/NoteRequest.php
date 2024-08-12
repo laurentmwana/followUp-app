@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Admin;
 
 use App\Query\QueryYear;
+use App\Rules\StudentIsNoteRule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class NoteRequest extends FormRequest
@@ -31,7 +32,8 @@ class NoteRequest extends FormRequest
 
             'student_id' => [
                 'required',
-                'exists:students,id'
+                'exists:students,id',
+                (new StudentIsNoteRule($this->input()))
             ],
 
             'course_id' => [

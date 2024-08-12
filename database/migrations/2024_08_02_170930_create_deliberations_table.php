@@ -17,19 +17,8 @@ return new class extends Migration
     {
         Schema::create('deliberations', function (Blueprint $table) {
             $table->id();
-            $table->float('pourcent');
-            $table->float('mca')->default(0);
-            $table->float('mcb')->default(0);
-            $table->float('mab')->default(0);
-            $table->float('total');
-            $table->float('tn');
-            $table->float('tnp');
-            $table->foreignIdFor(Year::class)
-                ->constrained()
-                ->cascadeOnDelete()
-                ->cascadeOnUpdate();
 
-            $table->foreignIdFor(Semester::class)
+            $table->foreignIdFor(Semester::class)->nullable()
                 ->constrained()
                 ->cascadeOnDelete()
                 ->cascadeOnUpdate();
@@ -39,10 +28,11 @@ return new class extends Migration
                 ->cascadeOnDelete()
                 ->cascadeOnUpdate();
 
-            $table->foreignIdFor(Student::class)
+            $table->foreignIdFor(Year::class)
                 ->constrained()
                 ->cascadeOnDelete()
                 ->cascadeOnUpdate();
+
             $table->timestamps();
         });
     }

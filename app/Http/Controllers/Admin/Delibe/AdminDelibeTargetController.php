@@ -7,7 +7,7 @@ namespace App\Http\Controllers\Admin\Delibe;
 use Illuminate\Contracts\View\View;
 use App\Http\Controllers\Controller;
 
-class AdminChoiceTargetDelibeController extends Controller
+class AdminDelibeTargetController extends Controller
 {
     /**
      * @param \Illuminate\Http\Request $request
@@ -15,6 +15,6 @@ class AdminChoiceTargetDelibeController extends Controller
      */
     public function __invoke(): View
     {
-        return view('admin.delibe.index');
+        return view('admin.delibe.create.index');
     }
 }
