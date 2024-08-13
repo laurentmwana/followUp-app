@@ -1,3 +1,10 @@
+@php
+$semesterId = request()->query->get('semester');
+
+@endphp
+
+@if ($semesterId === null || empty($semesterId))
+
 <div>
     <h2 class="mb-2">
         Annuel
@@ -87,3 +94,4 @@
 </x-card>
 @endforeach
 @endforeach
+@endif
