@@ -2,10 +2,11 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Student extends Model
 {
@@ -29,18 +30,13 @@ class Student extends Model
         return $this->hasMany(Note::class);
     }
 
-    public function deliberations(): HasMany
+    public function deliberateds(): HasMany
     {
-        return $this->hasMany(Deliberation::class);
+        return $this->hasMany(Deliberated::class);
     }
 
-    public function redos(): HasMany
+    public function choice(): HasOne
     {
-        return $this->hasMany(Redo::class);
-    }
-
-    public function capitalizes(): HasMany
-    {
-        return $this->hasMany(Capitalize::class);
+        return $this->hasOne(Choice::class);
     }
 }

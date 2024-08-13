@@ -16,4 +16,9 @@ class Year extends Model
     {
         return $this->hasMany(Level::class);
     }
+
+    public function annuals(): HasMany
+    {
+        return $this->hasMany(Annual::class);
+    }
 }

@@ -114,14 +114,23 @@
 
     @include('student.vz.delibe', [
     'delibes' => $semester->deliberations,
-    'semesterId' => $semester
+    'semesterId' => $semester,
     ])
+
+
+
 
     @include('shared.separator', [
     'class' => 'my-3'
     ])
 
     @endforeach
+
+    @include('student.vz.annual', [
+    'annuals' => $level->annuals,
+    'level' => $level,
+    'student' => $student,
+    ])
 
     @endforeach
 </div>

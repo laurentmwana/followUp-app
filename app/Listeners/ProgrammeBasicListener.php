@@ -34,27 +34,11 @@ class ProgrammeBasicListener
         DeliberationConstraint::hasDelibeExist($level, $event->semesterId);
 
 
-        $deliberation = $this->newDeliberation($year->id, $semester->id, $level->id);
+        $deliberation = QueryDelibe::newDeliberation($year->id, $semester->id, $level->id);
 
         foreach ($level->students as $student) {
             $this->processStudentDeliberation($student, $semester, $level, $deliberation);
         }
-    }
-
-    private function newDeliberation(int $yearId, int $semesterId, int $levelId): Deliberation
-    {
-        $deliberation  =  Deliberation::whereLevelId($levelId)
-            ->whereSemesterId($semesterId)
-            ->whereYearId($yearId)
-            ->first();
-
-        return null === $deliberation
-            ? Deliberation::create([
-                'level_id' => $levelId,
-                'semester_id' => $semesterId,
-                'year_id' => $yearId,
-            ])
-            : $deliberation;
     }
 
     private function processStudentDeliberation($student, $semester, $level, $deliberation): void

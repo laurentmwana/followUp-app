@@ -40,25 +40,27 @@ const onRemoveFlashMessage = () => {
     }
 };
 
-document.addEventListener("DOMContentLoaded", () => {
+const onPieChart = () => {
+    const delibe = document.querySelector("#piechart");
+    if (delibe) {
+        /*** @type {{okStudent: number, failStudent: number}} */
+        const data = JSON.parse(delibe.dataset.piechart);
+
+        new ApexCharts(delibe, {
+            series: [data.okStudent, data.failStudent],
+            chart: { type: "pie" },
+            labels: ["Étudiants Réussis", "Étudiants Échoués"],
+        }).render();
+    }
+};
+
+const init = () => {
     onActiveResponsiveTable();
     onNowDate();
     onRemoveFlashMessage();
-});
+    onPieChart();
+};
 
-window.addEventListener("resize", () => {
-    onActiveResponsiveTable();
-    onNowDate();
-    onRemoveFlashMessage();
-});
-const delibe = document.querySelector("#piechart");
-if (delibe) {
-    /*** @type {{okStudent: number, failStudent: number}} */
-    const data = JSON.parse(delibe.dataset.piechart);
+document.addEventListener("DOMContentLoaded", init);
 
-    new ApexCharts(delibe, {
-        series: [data.okStudent, data.failStudent],
-        chart: { type: "pie" },
-        labels: ["Étudiants Réussis", "Étudiants Échoués"],
-    }).render();
-}
+// window.addEventListener("resize", init);

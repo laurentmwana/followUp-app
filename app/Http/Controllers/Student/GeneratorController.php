@@ -2,15 +2,11 @@
 
 namespace App\Http\Controllers\Student;
 
-use App\Models\Year;
-use App\Models\Student;
-use App\Models\Programme;
+use Barryvdh\DomPDF\Facade as PDF;
 use Illuminate\Http\Request;
-use Illuminate\Contracts\View\View;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Database\Query\Builder;
-
+use Illuminate\Http\Response;
 
 class GeneratorController extends Controller
 {
@@ -20,57 +16,21 @@ class GeneratorController extends Controller
      * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Contracts\View\View
      */
-    public function __invoke(Request $request): View
+    public function __invoke(Request $request): Response
     {
         $studentId = Auth::user()->student_id;
 
-        $checkStudentNote = function ($query) use ($studentId) {
-            return $query->where('student_id', '=', $studentId);
-        };
+        // Chargez vos données
+        $data = ['name' => 'John Doe'];
 
-        $programmeId = $request->query->get('programme');
-        $semesterId = $request->query->get('semester');
+        // Générez le PDF avec une vue Blade
+        $pdf = PDF::loadView('pdf.view', $data);
 
-        $checkLevelSelect = function ($query) use ($programmeId) {
-            if (null === $programmeId || empty($programmeId)) return $query;
-            return $query->where('programme_id', '=', $programmeId);
-        };
+        // Optionnel: Ajoutez un fichier CSS externe
+        $pdf->setOption('isHtml5ParserEnabled', true);
+        $pdf->setOption('isPhpEnabled', true);
 
-        $checkDelibe = function ($query) use ($semesterId, $studentId) {
-            return (null === $semesterId || empty($semesterId))
-                ? $query->where('student_id', '=', $studentId)
-                : $query
-                ->where('student_id', '=', $studentId)
-                ->where('semester_id', '=', $semesterId);
-        };
-
-        $checkSemester = function ($query) use ($semesterId) {
-            if (null === $semesterId || empty($semesterId)) return $query;
-            return $query->whereIn('id', [$semesterId]);
-        };
-
-        $student = Student::with([
-            'levels.year',
-            'levels' => $checkLevelSelect,
-            'levels.programme',
-            'levels.option',
-            'levels.programme.semesters' => $checkSemester,
-            'levels.programme.semesters.deliberations' => $checkDelibe,
-            'levels.programme.semesters.groups',
-            'levels.programme.semesters.groups.category',
-            'levels.programme.semesters.groups.notes.course',
-            'levels.programme.semesters.groups.notes' => $checkStudentNote
-        ])
-            ->find($studentId);
-
-        $programmes = Programme::with(['semesters'])->get();
-
-        $years = Year::orderByDesc('state')->simplePaginate();
-
-        return view('student.generate.index', [
-            'years' => $years,
-            'programmes' => $programmes,
-            'student' => $student,
-        ]);
+        // Retourne le PDF comme réponse
+        return $pdf->download('document.pdf');
     }
 }

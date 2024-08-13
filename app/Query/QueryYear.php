@@ -18,4 +18,17 @@ abstract class QueryYear
             ->orderByDesc('updated_at')
             ->first();
     }
+
+    public static function newYear(): Year
+    {
+        $year = self::currentYear();
+
+        $year->update(['state' => 1]);
+
+        return Year::create([
+            'start' => $year->end + 1,
+            'end' => $year->end + 2,
+            'state' => 0,
+        ]);
+    }
 }

@@ -37,7 +37,6 @@ class AdminCourseController extends Controller
         ]);
     }
 
-
     /**
      * Permet de créer un cours
      *
@@ -48,7 +47,7 @@ class AdminCourseController extends Controller
     {
         Course::create($request->validated());
 
-        return redirect()->route('~course.index')
+        return redirect()->back()
             ->with('success', 'cours ajouté');
     }
 

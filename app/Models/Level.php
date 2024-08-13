@@ -38,4 +38,9 @@ class Level extends Model
     {
         return $this->hasMany(Deliberation::class);
     }
+
+    public function annuals(): HasMany
+    {
+        return $this->hasMany(Annual::class);
+    }
 }

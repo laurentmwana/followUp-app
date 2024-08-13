@@ -16,14 +16,15 @@ class Deliberated extends Model
         'mab',
         'total',
         'deliberation_id',
+        'annual_id',
         'student_id',
-        'decision_id',
         'pourcent',
         'tn',
         'tncc',
         'ncc',
         'tnp',
-        'validated'
+        'validated',
+        'decision'
     ];
 
     public function student(): BelongsTo

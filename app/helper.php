@@ -3,6 +3,7 @@
 use App\Models\Year;
 use App\Models\Level;
 use App\Models\Course;
+use App\Models\Option;
 use App\Query\QueryYear;
 use Illuminate\Database\Eloquent\Collection;
 
@@ -74,6 +75,19 @@ function formatCourseToGroup(?string $semesterId): array
     foreach ($courses as $course) {
         $value = "{$course->name} | {$course->credits} crédit(s)";
         $items[$course->id] = $value;
+    }
+
+    return $items;
+}
+
+function formatOptions(): array
+{
+    $items = [];
+
+    $options = Option::where('id', '>', 1)->get(['id', 'name', 'alias']);
+
+    foreach ($options as $option) {
+        $items[$option->id] = $option->name;
     }
 
     return $items;

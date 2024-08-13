@@ -26,6 +26,7 @@ return new class extends Migration
             $table->integer('tncc')->default(0);
             $table->float('tnp');
             $table->foreignIdFor(Deliberation::class)
+                ->nullable()
                 ->constrained()
                 ->cascadeOnDelete()
                 ->cascadeOnUpdate();
@@ -34,7 +35,8 @@ return new class extends Migration
                 ->cascadeOnDelete()
                 ->cascadeOnUpdate();
 
-            $table->enum('validated', ['NV', 'V'])->nullable();
+            $table->string('validated')->nullable();
+            $table->string('decision')->nullable();
 
             $table->timestamps();
         });

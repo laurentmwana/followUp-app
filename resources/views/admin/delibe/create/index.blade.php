@@ -25,6 +25,10 @@ $programmeId = request()->query->get('programme');
                         'semesterId' => $semesterId
                         ])
 
+                        @elseif($programmeId === '1' && ($semesterId === null || $semesterId === ''))
+                        @include('admin.delibe.create._form-basic-year', [
+                        'programmeId' => $programmeId,
+                        ])
                         @else
 
                         <p class="text-muted-foregroup text-sm">

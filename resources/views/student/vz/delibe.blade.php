@@ -27,14 +27,6 @@
                 {{ $deliberated->mab }}
             </p>
         </div>
-        <div class="flex items-center gap-3">
-            <p class="text-sm font-light">
-                Nombre de crédits capitalisées :
-            </p>
-            <p class="text-sm font-light">
-                {{ $deliberated->ncc }}
-            </p>
-        </div>
 
         <div class="flex items-center gap-3">
             <p class="text-sm font-light">
@@ -44,16 +36,40 @@
                 {{ $deliberated->tncc }}
             </p>
         </div>
+
         <div class="flex items-center gap-3">
-            <p class="text-sm font-semibold">
-                Pourcentage :
+            <p class="text-sm font-light">
+                Nombre de crédits capitalisées :
             </p>
             <p class="text-sm font-light">
-                {{ $deliberated->pourcent }}%
+                {{ $deliberated->ncc }}
             </p>
+        </div>
+
+        <div class="flex items-center gap-3 justify-between">
+            <p class="text-sm font-semibold">
+                Mention :
+            </p>
+            @if ($deliberated->validated === 'NV')
+            <div class="bg-red-300 border border-red-600 py-1 px-2 rounded-sm shadow-md">
+                <p class="text-sm font-bold">
+                    {{ $deliberated->validated }}
+                </p>
+            </div>
+
+            @else
+            <div class="bg-green-300 border border-green-600 py-1 px-2 rounded-sm shadow-md">
+                <p class="text-sm font-bold">
+                    {{ $deliberated->validated }}
+                </p>
+            </div>
+            @endif
+
         </div>
     </div>
 </x-card>
 @endforeach
+
+
 @endif
 @endforeach
