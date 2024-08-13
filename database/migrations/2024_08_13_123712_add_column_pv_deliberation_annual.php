@@ -11,7 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        //
+        Schema::table('deliberations', function (Blueprint $table) {
+            $table->text('pv')->nullable();
+        });
+
+        Schema::table('annuals', function (Blueprint $table) {
+            $table->text('pv')->nullable();
+        });
     }
 
     /**
@@ -19,6 +25,11 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //
+        Schema::table('deliberations', function (Blueprint $table) {
+            $table->dropColumn('pv');
+        });
+        Schema::table('annuals', function (Blueprint $table) {
+            $table->dropColumn('pv');
+        });
     }
 };

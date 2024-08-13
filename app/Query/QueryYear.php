@@ -26,8 +26,8 @@ abstract class QueryYear
         $year->update(['state' => 1]);
 
         return Year::create([
-            'start' => $year->end + 1,
-            'end' => $year->end + 2,
+            'start' => $year->end,
+            'end' => $year->end + 1,
             'state' => 0,
         ]);
     }

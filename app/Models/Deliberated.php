@@ -36,4 +36,9 @@ class Deliberated extends Model
     {
         return $this->belongsTo(Deliberation::class);
     }
+
+    public function annual(): BelongsTo
+    {
+        return $this->belongsTo(Annual::class);
+    }
 }

@@ -8,7 +8,7 @@ use App\Http\Requests\Admin\DeliberationAnnualRequest;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
-class AdminDelibeAnnualBasicController extends Controller
+class AdminNewAnnualBasicController extends Controller
 {
     public function __invoke(Request $request): RedirectResponse
     {

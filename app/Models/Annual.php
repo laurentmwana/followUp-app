@@ -14,7 +14,8 @@ class Annual extends Model
 
     protected $fillable = [
         'year_id',
-        'level_id'
+        'level_id',
+        'pv'
     ];
 
     public function level(): BelongsTo

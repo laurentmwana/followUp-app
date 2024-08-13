@@ -4,10 +4,12 @@ namespace App\Http\Controllers\Admin;
 
 use App\Models\Event;
 use App\Models\Level;
+use App\Models\Annual;
 use App\Models\Course;
 use App\Models\Option;
 use App\Models\Student;
 use App\Models\Professor;
+use App\Models\Deliberated;
 use App\Models\Deliberation;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
@@ -49,20 +51,27 @@ class DashboardController extends Controller
 
     private function getOrderDelibe(?string $levelId): array
     {
+
+        if ($levelId === null) {
+            return [
+                'okStudent' => Deliberated::where('annual_id', '!=', null)
+                    ->where('pourcent', '>', 49)->count('id'),
+                'failStudent' => Deliberated::where('annual_id', '!=', null)
+                    ->where('pourcent', '<=', 49)->count('id'),
+            ];
+        }
+
+        $annualIds = Annual::whereLevelId($levelId)
+            ->get('id');
+
+        $deliberated = Deliberated::whereIn(
+            'annual_id',
+            $annualIds
+        );
+
         return [
-            'okStudent' => 12,
-            'failStudent' => 5
+            'okStudent' => $deliberated !== null ? $deliberated->where('pourcent', '>', 49)->count('id') : 0,
+            'failStudent' => $deliberated !== null ? $deliberated->where('pourcent', '<=', 49)->count('id') : 0,
         ];
-        // return (null === $levelId || empty($levelId))
-        //     ? [
-        //         'okStudent' => Deliberation::where('pourcent', '>', 49)->count('id'),
-        //         'failStudent' => Deliberation::where('pourcent', '<=', 49)->count('id'),
-        //     ]
-        //     : [
-        //         'okStudent' => Deliberation::whereLevelId($levelId)
-        //             ->where('pourcent', '>', 49)->count('id'),
-        //         'failStudent' => Deliberation::whereLevelId($levelId)
-        //             ->where('pourcent', '<=', 49)->count('id'),
-        //     ];
     }
 }

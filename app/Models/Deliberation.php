@@ -14,7 +14,8 @@ class Deliberation extends Model
     protected $fillable = [
         'semester_id',
         'year_id',
-        'level_id'
+        'level_id',
+        'pv'
     ];
 
     public function level(): BelongsTo

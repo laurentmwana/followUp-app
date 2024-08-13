@@ -1,6 +1,7 @@
 <?php
 
-use App\Http\Controllers\Admin\Delibe\Annual\AdminDelibeAnnualBasicController;
+use App\Http\Controllers\Admin\Delibe\AdminAnnualController;
+use App\Http\Controllers\Admin\Delibe\Annual\AdminNewAnnualBasicController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\Delibe\AdminNewDeliberationController;
 use App\Http\Controllers\Admin\Delibe\AdminDelibeTargetController;
@@ -16,12 +17,19 @@ Route::prefix('admin')->name('~')->middleware(['auth', 'verified', 'admin'])
         Route::get('deliberation/{id}', [AdminDeliberationController::class, 'show'])
             ->name('delibe.show');
 
+
+        Route::get('deliberation/annual', [AdminAnnualController::class, 'index'])
+            ->name('delibe.annual.index');
+
+        Route::get('deliberation/annual/{id}', [AdminAnnualController::class, 'show'])
+            ->name('delibe.annual.show');
+
         Route::get('new-deliberation', AdminDelibeTargetController::class)
             ->name('delibe.new');
 
         Route::post('deliberation/create-basic', AdminNewDeliberationController::class)
             ->name('basic');
 
-        Route::post('deliberation/create-basic-year', AdminDelibeAnnualBasicController::class)
+        Route::post('deliberation/create-basic-year', AdminNewAnnualBasicController::class)
             ->name('basic-year');
     });
