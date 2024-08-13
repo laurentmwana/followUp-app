@@ -24,7 +24,7 @@ class AdminDeliberationController extends Controller
         ])
             ->paginate();
 
-        return view('admin.delibe.index', [
+        return view('admin.delibe.semester.index', [
             'deliberations' => $deliberations,
         ]);
     }
@@ -48,9 +48,31 @@ class AdminDeliberationController extends Controller
 
         $deliberateds = $deliberation->deliberateds()->paginate();
 
-        return view('admin.delibe.show', [
+        return view('admin.delibe.semester.show', [
             'deliberation' => $deliberation,
             'deliberateds' => $deliberateds,
+        ]);
+    }
+
+    public function pv(Deliberation $deliberation, Request $request): View | RedirectResponse
+    {
+        if ($request->getMethod() === 'PUT') {
+
+            $validated = $request->validate([
+                'pv' => ['required', 'between:10,5000']
+            ]);
+
+            $deliberation->update($validated);
+
+            return redirect()->route('~delibe.index')
+                ->with(
+                    'success',
+                    "procès-verbal pour la délibération semestrielle mis à jour"
+                );
+        }
+
+        return view('admin.delibe.semester.pv', [
+            'deliberation' => $deliberation,
         ]);
     }
 }

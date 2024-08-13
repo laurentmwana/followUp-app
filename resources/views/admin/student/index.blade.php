@@ -6,6 +6,12 @@
         'routeCreate' => route('~student.create')
         ])
 
+        <div class="my-3">
+            <x-button-link href="{{ route('~user.index') }}">
+                Gestion de compte des étudiants
+            </x-button-link>
+        </div>
+
         <table class="mb-4 w-full caption-bottom text-sm responsive-table">
             <thead class="[&_tr]:border-b">
                 <tr class="border-b transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted">

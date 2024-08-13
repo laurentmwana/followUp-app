@@ -1,13 +1,15 @@
-<x-admin-layout title="Déliberation annuelle">
+<x-admin-layout title="Déliberation Annuelle">
     <x-container class="py-12">
-        <h2 class="text-base font-medium mb-6">Déliberation annuelle</h2>
+        <h2 class="text-base font-medium mb-6">Déliberation Annuelle</h2>
 
         @include('shared.flash')
 
         <div class="flex justify-between gap-4 my-4">
 
             <div>
-
+                <x-button-link href="{{ route('~delibe.index') }}">
+                    Délibération Semestruelle
+                </x-button-link>
             </div>
             <x-button-link href="{{ route('~delibe.new', ['programme' => 1]) }}">
                 Effectuer une délibération annuelle
@@ -25,10 +27,17 @@
                         class="h-10 px-2 text-left align-middle font-medium text-muted-foreground [&:has([role=checkbox])]:pr-0 [&>[role=checkbox]]:translate-y-[2px]">
                         Année academique
                     </th>
-
+                    <th
+                        class="h-10 px-2 text-left align-middle font-medium text-muted-foreground [&:has([role=checkbox])]:pr-0 [&>[role=checkbox]]:translate-y-[2px]">
+                        Semestre
+                    </th>
                     <th
                         class="h-10 px-2 text-left align-middle font-medium text-muted-foreground [&:has([role=checkbox])]:pr-0 [&>[role=checkbox]]:translate-y-[2px]">
                         Nombre d'étudiants
+                    </th>
+                    <th
+                        class="h-10 px-2 text-left align-middle font-medium text-muted-foreground [&:has([role=checkbox])]:pr-0 [&>[role=checkbox]]:translate-y-[2px]">
+                        Procès-verbal (PV)
                     </th>
                     <th
                         class="h-10 px-2 text-left align-middle font-medium text-muted-foreground [&:has([role=checkbox])]:pr-0 [&>[role=checkbox]]:translate-y-[2px]">
@@ -51,12 +60,34 @@
                         </a>
                     </td>
                     <td class="p-2 align-middle [&:has([role=checkbox])]:pr-0 [&>[role=checkbox]]:translate-y-[2px]">
-                        <a href="{{ route('~delibe.show', $annual) }}" class="hover:underline">
+                        <a href="{{ route('~delibe.annual.show', $annual) }}" class="hover:underline">
                             {{ $annual->deliberateds->count() }} / {{ $annual->level->students->count() }}
                         </a>
                     </td>
                     <td class="p-2 align-middle [&:has([role=checkbox])]:pr-0 [&>[role=checkbox]]:translate-y-[2px]">
+                        @if ($annual->pv !== null)
+                        <x-badge type="success">
+                            Oui
+                        </x-badge>
+                        @else
+                        <x-badge type="destructive">
+                            Non
+                        </x-badge>
+                        @endif
+                    </td>
+                    <td class="p-2 align-middle [&:has([role=checkbox])]:pr-0 [&>[role=checkbox]]:translate-y-[2px]">
                         @include('shared.ago', ['now' => $annual->created_at])
+                    </td>
+
+                    <td class="p-2 align-middle [&:has([role=checkbox])]:pr-0 [&>[role=checkbox]]:translate-y-[2px]">
+                        <div class="flex gap-2 items-center">
+                            <x-button-link variant='default' href="{{ route('~delibe.annual.pv', $annual) }}">
+                                Procès-verbal
+                            </x-button-link>
+                            <x-button-link href="{{ route('~delibe.annual.show', $annual) }}">
+                                Voir
+                            </x-button-link>
+                        </div>
                     </td>
                 </tr>
                 @endforeach

@@ -37,7 +37,7 @@
                     <x-nav-link indexer="/mon-parcours" href="{{ route('^vz.index') }}"
                         :active="request()->routeIs('^vz.index')">Mon parcours</x-nav-link>
                     <x-nav-link indexer="/reproduction-du-bulletin" href="{{ route('^pdf.index') }}"
-                        :active="request()->routeIs('^pdf.index')">Reproduire le bulletin</x-nav-link>
+                        :active="request()->routeIs('^pdf.index')">Bulletin</x-nav-link>
                     @endif
                     @endauth
                 </nav>

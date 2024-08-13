@@ -62,5 +62,6 @@ const init = () => {
 };
 
 document.addEventListener("DOMContentLoaded", init);
+document.addEventListener("turbolinks:render", init);
 
 // window.addEventListener("resize", init);

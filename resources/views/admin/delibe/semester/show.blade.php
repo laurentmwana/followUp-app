@@ -1,10 +1,22 @@
 <x-admin-layout title=" Plus d'informaion sur la délibération #{{ $deliberation->id }}">
     <x-container class="py-12">
-        <h2 class="text-base font-medium mb-6">
-            Plus d'informaion sur la délibération #{{ $deliberation->id }}
-        </h2>
+        <div class="mb-6 max-w-lg">
+            <h2 class="text-base font-medium mb-2">
+                Procès verbal de la délibération #{{ $deliberation->id }}
+            </h2>
 
-        <div class="my-3 max-w-4xl">
+            @if ($deliberation->pv === null)
+            <x-button-link href="{{ route('~delibe.pv', $deliberation) }}">
+                Ajouter un procès verbal
+            </x-button-link>
+            @else
+            <p class="text-sm text-muted-foreground">
+                {{ $deliberation->pv }}
+            </p>
+            @endif
+
+        </div>
+        <div class="my-4 max-w-4xl">
             <x-card>
                 <h2 class="text-2xl font-semibold mb-2">
                     {{ $deliberation->level->programme->name }}

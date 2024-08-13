@@ -1,10 +1,22 @@
-<x-admin-layout title=" Plus d'informaion sur la délibération annuelle #{{ $annual->id }}">
+<x-admin-layout title=" Plus d'informaion sur la délibération #{{ $annual->id }}">
     <x-container class="py-12">
-        <h2 class="text-base font-medium mb-6">
-            Plus d'informaion sur la délibération annuelle #{{ $annual->id }}
-        </h2>
+        <div class="mb-6 max-w-lg">
+            <h2 class="text-base font-medium mb-2">
+                Procès verbal de la délibération #{{ $annual->id }}
+            </h2>
 
-        <div class="my-3 max-w-4xl">
+            @if ($annual->pv === null)
+            <x-button-link href="{{ route('~delibe.annual.pv', $annual) }}">
+                Ajouter un procès verbal
+            </x-button-link>
+            @else
+            <p class="text-sm text-muted-foreground">
+                {{ $annual->pv }}
+            </p>
+            @endif
+
+        </div>
+        <div class="my-4 max-w-4xl">
             <x-card>
                 <h2 class="text-2xl font-semibold mb-2">
                     {{ $annual->level->programme->name }}

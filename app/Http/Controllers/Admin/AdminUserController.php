@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\User;
-use Illuminate\Http\Request;
 use App\Search\Search;
 use Illuminate\Contracts\View\View;
 use App\Http\Controllers\Controller;
@@ -50,7 +49,7 @@ class AdminUserController extends Controller
         ]);
 
         return redirect()->route('~user.index')
-            ->with('success', 'user ajouté');
+            ->with('success', 'utilisateur ajouté');
     }
 
     /**
@@ -99,7 +98,7 @@ class AdminUserController extends Controller
 
 
         return redirect()->route('~user.index')
-            ->with('success', 'user modifié');
+            ->with('success', 'utilisateur modifié');
     }
 
     /**
@@ -112,6 +111,6 @@ class AdminUserController extends Controller
         $user->delete();
 
         return redirect()->route('~user.index')
-            ->with('success', 'user supprimé');
+            ->with('success', 'utilisateur supprimé');
     }
 }
