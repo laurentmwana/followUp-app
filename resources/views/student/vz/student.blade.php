@@ -130,7 +130,6 @@
 
     @endforeach
 
-
     @if ($level->annuals->contains('year_id', $level->year->id))
     <div class="mb-4">
         @include('student.vz.annual', [

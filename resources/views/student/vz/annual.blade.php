@@ -93,5 +93,14 @@ $semesterId = request()->query->get('semester');
 
 </x-card>
 @endforeach
+
+<x-card class="border-indigo-400 mt-3 bg-inherit">
+    <h2 class="text-base font-bold mb-3">
+        Procès verbal
+    </h2>
+    <p class="text-sm text-muted-foregroud">
+        {{ null === $annual->pv ? 'Pas disponible' : $annual->pv }}
+    </p>
+</x-card>
 @endforeach
 @endif
