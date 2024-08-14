@@ -12,6 +12,7 @@
     </x-card>
 
     @foreach ($student->levels as $level)
+
     <x-card class="bg-inherit mb-2">
         <h2 class="text-base font-semibold text-gray-700 dark:text-muted-foreground mb-2">
             {{ $level->programme->name }} ~ {{ $level->year->start }} -
@@ -22,6 +23,7 @@
         </p>
     </x-card>
 
+
     @foreach ($level->programme->semesters as $semester)
     <div>
         <h2 class="mb-2">
@@ -29,7 +31,9 @@
         </h2>
     </div>
 
-    @foreach ($semester->groups as $group) @if ($group->notes->count() > 0)
+    @foreach ($semester->groups as $group)
+
+    @if ($group->notes->count() > 0 && $group->notes->contains('year_id', $level->year->id))
 
     <div class="flex items-center justify-between text-sm text-muted-foreground">
         <div>
@@ -112,27 +116,35 @@
     @endif
     @endforeach
 
+
+
+    @if ($semester->deliberations->contains('year_id', $level->year->id))
     @include('student.vz.delibe', [
     'delibes' => $semester->deliberations,
     'semesterId' => $semester,
     ])
+    @include('shared.separator', [
+    'class' => 'my-3'
+    ])
+    @endif
+
+    @endforeach
 
 
-
+    @if ($level->annuals->contains('year_id', $level->year->id))
+    <div class="mb-4">
+        @include('student.vz.annual', [
+        'annuals' => $level->annuals,
+        'level' => $level,
+        'student' => $student,
+        ])
+    </div>
 
     @include('shared.separator', [
     'class' => 'my-3'
     ])
 
-    @endforeach
-
-    @include('student.vz.annual', [
-    'annuals' => $level->annuals,
-    'level' => $level,
-    'student' => $student,
-    ])
-
-
+    @endif
 
     @endforeach
 </div>

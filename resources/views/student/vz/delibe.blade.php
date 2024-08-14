@@ -1,6 +1,7 @@
 @foreach ($delibes as $delibe)
 @if ($semester->id === $delibe->semester_id)
 @foreach ($delibe->deliberateds as $deliberated)
+
 <x-card class="mt-2 border bg-inherit">
     <div class="flex flex-col gap-3">
         <div class="flex items-center gap-3">
@@ -68,8 +69,7 @@
         </div>
     </div>
 </x-card>
+
 @endforeach
-
-
 @endif
 @endforeach

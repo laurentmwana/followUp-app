@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Admin\Delibe\Annual;
 
 use App\Events\ProgrammeBasicAnnualEvent;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Admin\DeliberationAnnualRequest;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
@@ -16,7 +15,7 @@ class AdminNewAnnualBasicController extends Controller
             $request->query->get('programme')
         ));
 
-        return redirect()->route('~delibe.index')
+        return redirect()->route('~delibe.annual.index')
             ->with('success', "délibération annuelle L1 ~ L2 effectuer avec succès");
     }
 }

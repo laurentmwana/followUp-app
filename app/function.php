@@ -13,6 +13,7 @@ define('ARRAY_SEXIES', [
  * @param string $role
  * @return bool
  */
+
 function isAdmin(string $role): bool
 {
     return $role === RoleEnum::ROLE_ADMIN->value;

@@ -2,7 +2,7 @@
 
 namespace App\Listeners;
 
-use App\Constraint\DeliberationConstraint;
+use App\Constraint\DeliberationSemesterConstraint;
 use App\Models\Note;
 use App\Models\Level;
 use App\Models\Semester;
@@ -30,8 +30,8 @@ class ProgrammeBasicListener
 
         $semester = QueryDelibe::findSemester($event->semesterId);
 
-        DeliberationConstraint::hasNoteStudentExist($level, $semester);
-        DeliberationConstraint::hasDelibeExist($level, $event->semesterId);
+        DeliberationSemesterConstraint::hasNoteStudentExist($level, $semester);
+        DeliberationSemesterConstraint::hasDelibeExist($level, $event->semesterId);
 
 
         $deliberation = QueryDelibe::newDeliberation($year->id, $semester->id, $level->id);

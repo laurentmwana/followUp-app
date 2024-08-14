@@ -2,6 +2,7 @@
 
 namespace App\Listeners;
 
+use App\Constraint\DeliberationAnnualConstraint;
 use App\Models\Note;
 use App\Models\Level;
 use App\Models\Choice;
@@ -12,7 +13,7 @@ use App\Query\QueryDelibe;
 use App\Models\Deliberated;
 use App\Models\Deliberation;
 use App\Events\ProgrammeBasicAnnualEvent;
-use App\Constraint\DeliberationConstraint;
+use App\Constraint\DeliberationSemesterConstraint;
 use Symfony\Component\HttpFoundation\Response;
 
 class ProgrammeBasicAnnualListener
@@ -29,6 +30,8 @@ class ProgrammeBasicAnnualListener
     {
         $year = QueryYear::currentYear();
         $level = QueryDelibe::findLevel($event->programmeId, $year->id);
+
+        DeliberationAnnualConstraint::hasDelibeSemesterExist($level);
 
         $annual = QueryDelibe::newAnnual($year->id, $level->id);
 
