@@ -7,7 +7,7 @@ use App\Models\Level;
 use App\Models\Semester;
 use Symfony\Component\HttpFoundation\Response;
 
-abstract class DeliberationSemesterConstraint
+abstract class SemesterConstraint
 {
     public static function hasDelibeExist(Level $level, string $semesterId): void
     {

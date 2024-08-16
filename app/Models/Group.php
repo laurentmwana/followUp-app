@@ -13,6 +13,7 @@ class Group extends Model
 
     protected $fillable  = [
         'name',
+        'credits',
         'category_id',
         'semester_id'
     ];

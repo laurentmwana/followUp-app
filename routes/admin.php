@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\AdminNoteController;
 use App\Http\Controllers\Admin\AdminUserController;
+use App\Http\Controllers\Admin\AdminYearController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\AdminGroupController;
 use App\Http\Controllers\Admin\AdminLevelController;
@@ -48,4 +49,14 @@ Route::prefix('admin')->name('~')->middleware(['auth', 'verified', 'admin'])
 
         Route::get('programme-lmd', AdminProgrammeController::class)
             ->name('lmd.index');
+
+
+        Route::get('year', [AdminYearController::class, 'index'])
+            ->name('year.index');
+
+        Route::get('year/{year}', [AdminYearController::class, 'show'])
+            ->name('year.show');
+
+        Route::put('year/{year}', [AdminYearController::class, 'closed'])
+            ->name('year.closed');
     });

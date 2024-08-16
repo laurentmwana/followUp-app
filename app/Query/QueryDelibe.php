@@ -9,6 +9,7 @@ use App\Models\Decision;
 use App\Models\Semester;
 use App\Enums\DecisionEnum;
 use App\Models\Deliberation;
+use Illuminate\Database\Eloquent\Collection;
 
 abstract class QueryDelibe
 {
@@ -26,7 +27,24 @@ abstract class QueryDelibe
         ])->find($id);
     }
 
-    public static function findLevel(string $programmeId, int $yearId): Level
+    public static function findLevel(string $programmeId, int $yearId, ?int $optionId = null): Level
+    {
+        $level =  Level::with([
+            'students',
+            'students.notes',
+            'deliberations',
+            'deliberations.deliberateds',
+            'students.notes.group',
+            'students.notes.student',
+        ])->whereProgrammeId($programmeId)
+            ->whereYearId($yearId);
+
+        return $optionId === null
+            ? $level->first() :
+            $level->whereOptionId($optionId);
+    }
+
+    public static function findAllLevel(string $programmeId, int $yearId): Collection
     {
         return Level::with([
             'students',
@@ -37,7 +55,7 @@ abstract class QueryDelibe
             'students.notes.student',
         ])->whereProgrammeId($programmeId)
             ->whereYearId($yearId)
-            ->first();
+            ->get();
     }
 
     public static function newDeliberation(int $yearId, ?int $semesterId, int $levelId): Deliberation
@@ -87,33 +105,38 @@ abstract class QueryDelibe
             : $newBasicYear;
     }
 
-    public static function newLevelInfo(Year $year): Level
-    {
+    public static function newLevelInfo(
+        Year $year,
+        int $nextProgramme = 2
+    ): Level {
         $level = Level::whereYearId($year->id)
             ->whereOptionId(3)
-            ->whereProgrammeId(2)
+            ->whereProgrammeId($nextProgramme)
             ->first();
 
         return $level === null
             ? Level::create([
                 'year_id' => $year->id,
-                'programme_id' => 2,
+                'programme_id' => $nextProgramme,
                 'option_id' => 3,
             ])
             : $level;
     }
 
-    public static function newLevelMathStat(Year $year): Level
-    {
+    public static function newLevelMathStat(
+        Year $year,
+        int $nextProgramme = 2
+
+    ): Level {
         $newBasicYear = Level::whereYearId($year->id)
             ->whereOptionId(2)
-            ->whereProgrammeId(2)
+            ->whereProgrammeId($nextProgramme)
             ->first();
 
         return $newBasicYear === null
             ? Level::create([
                 'year_id' => $year->id,
-                'programme_id' => 2,
+                'programme_id' => $nextProgramme,
                 'option_id' => 2,
             ])
             : $newBasicYear;

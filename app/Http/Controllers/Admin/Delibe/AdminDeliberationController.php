@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin\Delibe;
 
 use Illuminate\Http\Request;
-use App\Events\ProgrammeBasicEvent;
+use App\Events\DeliberationSemesterEvent;
 use App\Http\Controllers\Controller;
 use App\Models\Deliberation;
 use Illuminate\Contracts\View\View;

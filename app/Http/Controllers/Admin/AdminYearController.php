@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Models\Dean;
 use App\Models\Year;
+use App\Search\Search;
+use App\Query\QueryYear;
 use Illuminate\Http\Request;
 use App\Events\CloseYearEvent;
 use Illuminate\Contracts\View\View;
@@ -20,22 +22,16 @@ class AdminYearController extends Controller
      * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Contracts\View\View
      */
-    public function index(Request $request): View
+    public function index(Search $search): View
     {
-        $years = Year::with(['levels'])
-            ->orderByDesc('updated_at')
-            ->orderByDesc('onclose')
-            ->paginate();
-
         return view('admin.year.index', [
-            'years' => $years,
+            'years' => $search->years(),
         ]);
     }
 
+
     /**
-     * Permet d'afficher plus d'information d'une année académique.
      * @param \App\Models\Year $year
-     * @throws \App\Exceptions\YearIsOnClosedException
      * @return \Illuminate\Contracts\View\View
      */
     public function show(Year $year): View
@@ -45,26 +41,23 @@ class AdminYearController extends Controller
         ]);
     }
 
-    /**
-     * @param \App\Models\Year $year
-     * @throws \App\Exceptions\YearIsOnClosedException
-     * @return \Illuminate\Http\RedirectResponse
-     */
-    public function onclose(Year $year): RedirectResponse
+    public function closed(Year $year): RedirectResponse
     {
         if ($year->onclose) {
             throw new YearIsOnClosedException();
         }
 
-        $year->update(['onclose' => true]);
+        $nextYear = QueryYear::nextYear();
 
-        $newYear = Year::create([
-            'start' => $year->start + 1,
-            'end' => $year->end + 2,
-        ]);
+        $year->update(['state' => 1]);
+        $nextYear->update(['state' => 0]);
 
-        event(new CloseYearEvent($newYear));
-
-        return redirect()->route('~year.index');
+        return redirect()
+            ->route('~year.index')
+            ->with(
+                'success',
+                "L'année academique {$year->start}-{$year->end} a
+                    été cloturée."
+            );
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Admin;
 
 use App\Models\Course;
+use App\Rules\MaxCreditGroupRule;
 use Illuminate\Validation\Rules\Unique;
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -35,6 +36,9 @@ class CourseRequest extends FormRequest
             'credits' => [
                 'required',
                 'numeric',
+                new MaxCreditGroupRule(
+                    $this->input()
+                )
             ],
             'description' => [
                 'max:5000',

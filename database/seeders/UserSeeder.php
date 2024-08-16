@@ -6,7 +6,6 @@ use App\Models\User;
 use App\Enums\RoleEnum;
 use App\Models\Student;
 use Illuminate\Database\Seeder;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 class UserSeeder extends Seeder
 {
@@ -21,9 +20,33 @@ class UserSeeder extends Seeder
             'name' => 'padoda',
         ]);
 
-        Student::factory(2)->create()->each(
-            fn (Student $student) => User::factory()
-                ->create(['student_id' => $student->id])
-        );
+        $students = [
+            ['name' => 'NTUMBA', 'firstname' => 'NKITA'],
+            ['name' => 'MUKUNGI', 'firstname' => 'MUSEMES'],
+            ['name' => 'BOBELE', 'firstname' => 'BOLONGOMBA'],
+            ['name' => 'ISAKO', 'firstname' => 'IYOTA'],
+        ];
+
+        foreach ($students as $key => $student) {
+            $newStudent = Student::factory()->create([
+                'name' => $student['name'],
+                'firstname' => $student['firstname'],
+            ]);
+
+            User::factory()
+                ->create(['student_id' => $newStudent->id]);
+
+            if ($key >= 0 && $key < 2) {
+                $newStudent->choice()->create([
+                    'option_id' => 3
+                ]);
+            }
+
+            if ($key >= 2 && $key < 4) {
+                $newStudent->choice()->create([
+                    'option_id' => 2
+                ]);
+            }
+        }
     }
 }

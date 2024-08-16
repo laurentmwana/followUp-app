@@ -42,6 +42,9 @@
                     <x-nav-link href="{{ route('~course.index') }}" indexer="admin/course">Cours</x-nav-link>
 
                     <x-nav-link href="{{ route('~note.index') }}" indexer="admin/note">Note</x-nav-link>
+                    <x-nav-link href="{{ route('~year.index') }}" indexer="admin/year">
+                        Année
+                    </x-nav-link>
 
                     <x-nav-link href="{{ route('~delibe.index') }}" indexer="admin/delibe">Délibération</x-nav-link>
                 </nav>
@@ -85,6 +88,12 @@
 
                                 <x-dropdown-link href="{{ route('~note.index') }}" indexer="admin/note">Note
                                 </x-dropdown-link>
+
+
+                                <x-dropdown-link href="{{ route('~year.index') }}" indexer="admin/delibe">Année
+                                    Academique
+                                </x-dropdown-link>
+
 
                                 <x-dropdown-link href="{{ route('~delibe.index') }}" indexer="admin/delibe">Délibération
                                 </x-dropdown-link>

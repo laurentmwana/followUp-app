@@ -4,6 +4,7 @@ namespace App\Search;
 
 use App\Models\Note;
 use App\Models\User;
+use App\Models\Year;
 use App\Models\Group;
 use App\Models\Level;
 use App\Models\Course;
@@ -20,9 +21,7 @@ use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 
 class Search
 {
-    public function __construct(private Request $request)
-    {
-    }
+    public function __construct(private Request $request) {}
 
     public function faculty(): LengthAwarePaginator
     {
@@ -170,6 +169,22 @@ class Search
             ->where('role', '!=', RoleEnum::ROLE_ADMIN->value)
             ->orWhere('name', 'like', "%$query%")
             ->orWhere('email', 'like', "%$query%")
+            ->orderByDesc('updated_at')
+            ->paginate();
+    }
+
+    public function years(): LengthAwarePaginator
+    {
+        $query = $this->request->query->get('query');
+
+        return $query === null
+            ? Year::with(['levels'])
+            ->orderByDesc('updated_at')
+            ->paginate()
+            : Year::with(['levels'])
+            ->orWhere('start', 'like', "%$query%")
+            ->orWhere('end', 'like', "%$query%")
+            ->orWhere('state', 'like', "%$query%")
             ->orderByDesc('updated_at')
             ->paginate();
     }

@@ -71,23 +71,10 @@ class GeneratorSeeder extends Seeder
             ['name' => 'B'],
         ]);
 
-        foreach (Category::all() as $c) {
-
-            Group::factory()->create([
-                'category_id' => $c->id,
-                'semester_id' => Semester::find(1)->id,
-            ]);
-
-            Group::factory()->create([
-                'category_id' => $c->id,
-                'semester_id' => Semester::find(2)->id,
-            ]);
-        }
-
         Professor::factory(3)->create();
 
         Year::factory()->createMany([
-            ['start' => 2022, 'end' => 2023, 'state' => 0],
+            ['start' => 2023, 'end' => 2024, 'state' => 0],
         ]);
 
         Level::factory()->create([

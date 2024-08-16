@@ -2,14 +2,15 @@
 
 namespace App\Listeners;
 
-use App\Constraint\DeliberationSemesterConstraint;
 use App\Models\Note;
 use App\Models\Level;
+use App\Math\Capitalize;
 use App\Models\Semester;
 use App\Query\QueryYear;
 use App\Query\QueryDelibe;
 use App\Models\Deliberation;
-use App\Events\ProgrammeBasicEvent;
+use App\Constraint\SemesterConstraint;
+use App\Events\DeliberationSemesterEvent;
 use Symfony\Component\HttpFoundation\Response;
 
 class ProgrammeBasicListener
@@ -22,16 +23,20 @@ class ProgrammeBasicListener
     /**
      * Handle the event.
      */
-    public function handle(ProgrammeBasicEvent $event): void
+    public function handle(DeliberationSemesterEvent $event): void
     {
         $year = QueryYear::currentYear();
-        $level = QueryDelibe::findLevel($event->programmeId, $year->id);
+        $level = QueryDelibe::findLevel(
+            $event->programmeId,
+            $year->id,
+            $event->optionId,
+        );
 
 
         $semester = QueryDelibe::findSemester($event->semesterId);
 
-        DeliberationSemesterConstraint::hasNoteStudentExist($level, $semester);
-        DeliberationSemesterConstraint::hasDelibeExist($level, $event->semesterId);
+        SemesterConstraint::hasNoteStudentExist($level, $semester);
+        SemesterConstraint::hasDelibeExist($level, $event->semesterId);
 
 
         $deliberation = QueryDelibe::newDeliberation($year->id, $semester->id, $level->id);
@@ -123,7 +128,8 @@ class ProgrammeBasicListener
         int $pourcent
     ): void {
 
-        $validated = $ncc === $tncc ? 'V' : 'NV';
+
+        $validated =  Capitalize::mention($ncc, $tncc);
 
         $deliberation->deliberateds()->create([
             'mca' => $meanA,

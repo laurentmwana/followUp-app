@@ -9,6 +9,20 @@ abstract class Capitalize
 
     public static function ok(int $ncc, int $tncc): bool
     {
-        return $ncc >= self::LIMIT && $ncc <= $tncc;
+        return ($ncc >= self::LIMIT && $ncc <= $tncc) || $ncc === $tncc;
+    }
+
+    public static function mention(int $ncc, int $tncc): string
+    {
+        $ok = self::ok($ncc, $tncc);
+
+        return $ok ? 'V' : 'NV';
+    }
+
+    public static function decision(int $ncc, int $tncc): string
+    {
+        $ok = self::ok($ncc, $tncc);
+
+        return $ok ? 'Admis' : 'Reprend';
     }
 }

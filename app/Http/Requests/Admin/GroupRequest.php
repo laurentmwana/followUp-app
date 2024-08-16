@@ -32,6 +32,11 @@ class GroupRequest extends FormRequest
                 'between:2,20',
                 (new Unique(Group::class))->ignore($id),
             ],
+            'credits' => [
+                'required',
+                'numeric',
+                'between:2,20',
+            ],
             'category_id' => [
                 'required',
                 'exists:categories,id',

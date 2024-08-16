@@ -18,6 +18,10 @@
                     </th>
                     <th
                         class="h-10 px-2 text-left align-middle font-medium text-muted-foreground [&:has([role=checkbox])]:pr-0 [&>[role=checkbox]]:translate-y-[2px]">
+                        Crédits Max
+                    </th>
+                    <th
+                        class="h-10 px-2 text-left align-middle font-medium text-muted-foreground [&:has([role=checkbox])]:pr-0 [&>[role=checkbox]]:translate-y-[2px]">
                         Categorie
                     </th>
                     <th
@@ -41,6 +45,11 @@
                     <td class="p-2 align-middle [&:has([role=checkbox])]:pr-0 [&>[role=checkbox]]:translate-y-[2px]">
                         <a href="{{ route('~group.show', $group) }}" class="hover:underline">
                             {{ $group->name }}
+                        </a>
+                    </td>
+                    <td class="p-2 align-middle [&:has([role=checkbox])]:pr-0 [&>[role=checkbox]]:translate-y-[2px]">
+                        <a href="{{ route('~group.show', $group) }}" class="hover:underline">
+                            {{ $group->credits }}
                         </a>
                     </td>
                     <td class="p-2 align-middle [&:has([role=checkbox])]:pr-0 [&>[role=checkbox]]:translate-y-[2px]">

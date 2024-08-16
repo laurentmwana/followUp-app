@@ -3,6 +3,7 @@
 
 namespace App\Query;
 
+use App\Models\Deliberation;
 use App\Models\Year;
 
 abstract class QueryYear
@@ -19,16 +20,21 @@ abstract class QueryYear
             ->first();
     }
 
-    public static function newYear(): Year
+    public static function nextYear(): Year
     {
         $year = self::currentYear();
 
-        $year->update(['state' => 1]);
+        $nextYear = Year::where('start', '=', $year->start + 1)
+            ->where('end', '=', $year->end + 1)
+            ->where('state', '=', -1)
+            ->first();
 
-        return Year::create([
-            'start' => $year->end,
-            'end' => $year->end + 1,
-            'state' => 0,
-        ]);
+        return $nextYear === null
+            ? Year::create([
+                'start' => $year->start + 1,
+                'end' => $year->end + 1,
+                'state' => -1,
+            ])
+            : $nextYear;
     }
 }

@@ -42,4 +42,10 @@ Route::prefix('admin')->name('~')->middleware(['auth', 'verified', 'admin'])
 
         Route::post('deliberation/create-basic-year', AdminNewAnnualBasicController::class)
             ->name('basic-year');
+
+        Route::post('deliberation/create-classic', AdminNewDeliberationController::class)
+            ->name('classic');
+
+        Route::post('deliberation/create-classic-year', AdminNewDeliberationController::class)
+            ->name('classic-year');
     });

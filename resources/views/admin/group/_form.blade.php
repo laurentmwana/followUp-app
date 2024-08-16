@@ -20,6 +20,12 @@ $semesters = \App\Models\Semester::pluck('name', 'id');
     </div>
 
     <div>
+        <x-input-label for="credits">Crédits</x-input-label>
+        <x-text-input value="{{ old('credits', $group->credits) }}" id="credits" name="credits" />
+        <x-input-error :messages="$errors->get('credits')" class="mt-2" />
+    </div>
+
+    <div>
         <x-input-label for="category_id">Categorie</x-input-label>
         <x-select :items="$categories" id="category_id" name="category_id"
             value="{{ old('category_id', $group->category_id) }}" placeholder="Selectionner une categorie" />
