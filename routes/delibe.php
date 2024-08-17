@@ -41,9 +41,10 @@ Route::prefix('admin')->name('~')->middleware(['auth', 'verified', 'admin'])
         Route::post('deliberation-semester/create-basic', AdminNewDeliberationController::class)
             ->name('semester');
 
-        Route::post('deliberation/create-basic-year', AdminNewFirstLevelAnnualController::class)
+        Route::post('deliberation/create-first-year', AdminNewFirstLevelAnnualController::class)
             ->name('basic-year');
-
-        Route::post('deliberation/create-classic-year', AdminNewSecondLevelAnnualController::class)
+        Route::post('deliberation/create-second-year', AdminNewSecondLevelAnnualController::class)
             ->name('classic-year');
+        Route::post('deliberation/create-finalist-year', AdminNewSecondLevelAnnualController::class)
+            ->name('finalist-year');
     });

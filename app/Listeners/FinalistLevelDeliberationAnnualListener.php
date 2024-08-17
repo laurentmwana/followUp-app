@@ -12,9 +12,9 @@ use App\Query\QueryDelibe;
 use App\Models\Deliberated;
 use App\Constraint\AnnualConstraint;
 use Illuminate\Database\Eloquent\Collection;
-use App\Events\SecondLevelDeliberationAnnualEvent;
+use App\Events\FinalistLevelDeliberationAnnualEvent;
 
-class SecondLevelDeliberationAnnualListener
+class FinalistLevelDeliberationAnnualListener
 {
     /**
      * Create the event listener.
@@ -24,7 +24,7 @@ class SecondLevelDeliberationAnnualListener
     /**
      * Handle the event.
      */
-    public function handle(SecondLevelDeliberationAnnualEvent $event): void
+    public function handle(FinalistLevelDeliberationAnnualEvent $event): void
     {
         $year = QueryYear::currentYear();
 
@@ -77,9 +77,9 @@ class SecondLevelDeliberationAnnualListener
         $pourcent = [];
         $mca = [];
         $mcb = [];
+        $mab = [];
         $tn = 0;
         $tnp = 0;
-        $mab = [];
         $ncc = 0;
         $tncc = 0;
 
@@ -126,9 +126,6 @@ class SecondLevelDeliberationAnnualListener
 
         $newLevelBasic = QueryDelibe::replyLevel($newYear, $level);
 
-        $newLevelInfo = QueryDelibe::newLevelInfo($newYear, 3);
-        $newLevelMathStat = QueryDelibe::newLevelMathStat($newYear, 3);
-
         foreach ($students as $student) {
             $deliberated = $deliberatedsAnnuals[$student->id];
 
@@ -137,10 +134,7 @@ class SecondLevelDeliberationAnnualListener
             $this->assignStudentToLevel(
                 $deliberated,
                 $student,
-                $newLevelBasic,
-                $newLevelInfo,
-                $newLevelMathStat,
-                $level
+                $newLevelBasic
             );
         }
     }
@@ -149,17 +143,8 @@ class SecondLevelDeliberationAnnualListener
         Deliberated $deliberated,
         Student $student,
         Level $newLevelBasic,
-        Level $newLevelInfo,
-        Level $newLevelMathStat,
-        Level $level
     ): void {
-        if ($deliberated->decision === 'Admis') {
-            if ($level->option_id === 2) {
-                $newLevelMathStat->students()->attach([$student->id]);
-            } elseif ($level->option_id === 3) {
-                $newLevelInfo->students()->attach([$student->id]);
-            }
-        } else {
+        if ($deliberated->decision !== 'Admis') {
             $newLevelBasic->students()->attach([$student->id]);
         }
     }

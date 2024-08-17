@@ -60,7 +60,7 @@ abstract class AnnualConstraint
     private static function getDeliberationsForLevel(Level $level): array
     {
         return Deliberation::whereLevelId($level->id)
-            ->whereYearId($level->id)
+            ->whereYearId($level->year_id)
             ->pluck('id')->toArray();
     }
 

@@ -33,13 +33,24 @@ $programmeId = request()->query->get('programme');
                         'programmeId' => $programmeId,
                         ])
 
-                        @elseif($programmeId === '2' && ($semesterId === '3' || $semesterId === '4'))
-                        @include('admin.delibe.create._form-classic', [
+
+
+                        @elseif(
+                        ($programmeId === '2' && ($semesterId === '3' || $semesterId === '4')) ||
+                        ($programmeId === '3' && ($semesterId === '5' || $semesterId === '6'))
+                        )
+                        @include('admin.delibe.create._form-next-level', [
                         'programmeId' => $programmeId,
+                        'semesterId' => $semesterId,
                         ])
 
                         @elseif($programmeId === '2' && ($semesterId === null || $semesterId === ''))
-                        @include('admin.delibe.create._form-classic-year', [
+                        @include('admin.delibe.create._form-second-annual', [
+                        'programmeId' => $programmeId,
+                        ])
+
+                        @elseif($programmeId === '3' && ($semesterId === null || $semesterId === ''))
+                        @include('admin.delibe.create._form-finalist-annual', [
                         'programmeId' => $programmeId,
                         ])
                         @else

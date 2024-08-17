@@ -7,9 +7,6 @@ $students = formatLevelToStudent($programmeId);
 $courses = formatCourseToGroup($semesterId);
 @endphp
 
-
-@dump($errors->all())
-
 <div class="flex gap-4 flex-wrap w-ful">
     <div>
         @include('shared.programme', [
