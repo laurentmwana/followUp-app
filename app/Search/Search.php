@@ -180,6 +180,7 @@ class Search
         return $query === null
             ? Year::with(['levels'])
             ->orderByDesc('updated_at')
+            ->orderByDesc('state')
             ->paginate()
             : Year::with(['levels'])
             ->orWhere('start', 'like', "%$query%")

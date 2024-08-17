@@ -17,9 +17,7 @@ class MoyGroup
     /**
      * @param \Illuminate\Database\Eloquent\Collection<int, Note> $notes
      */
-    public function __construct(private Collection $notes)
-    {
-    }
+    public function __construct(private Collection $notes) {}
 
     public function calcul(): self
     {

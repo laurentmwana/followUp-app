@@ -1,7 +1,8 @@
-<form class="space-y-4" method="post" action="{{ route('~basic-year', [
-'programme' => $programmeId,
-]) }}" method="get" onsubmit="return confirm('Voulez-vous vraiment effectuer cette action ?')">
+<form class="space-y-4" method="post" action="{{ route('~basic-year') }}"
+    onsubmit="return confirm('Voulez-vous vraiment effectuer cette action ?')">
     @csrf
+    <input type="hidden" name="programme" value="{{ $programmeId }}">
+    <input type="hidden" name="option_id" value="1">
 
     <div class="mb-2">
         <x-secondary-button type="submit">

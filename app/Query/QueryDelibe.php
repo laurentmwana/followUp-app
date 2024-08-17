@@ -2,6 +2,7 @@
 
 namespace App\Query;
 
+use App\Exceptions\YearIsNotClosedException;
 use App\Models\Year;
 use App\Models\Level;
 use App\Models\Annual;
@@ -27,21 +28,43 @@ abstract class QueryDelibe
         ])->find($id);
     }
 
-    public static function findLevel(string $programmeId, int $yearId, ?int $optionId = null): Level
+    public static function findLevel(string $programmeId, int $yearId, int $optionId): Level
     {
+        $l = Level::with(['students'])
+            ->whereProgrammeId($programmeId)
+            ->whereOptionId($optionId)
+            ->whereYearId($yearId)->first();
+
+        if ($l === null) {
+            throw new YearIsNotClosedException(
+                $programmeId
+            );
+        }
+
         $level =  Level::with([
             'students',
-            'students.notes',
-            'deliberations',
+            'students.notes' => function ($query) use ($l) {
+                return $query
+                    ->where('year_id', '=', $l->year_id)
+                    ->whereIn('student_id', $l->students->pluck('id')->toArray());
+            },
+            'deliberations' => function ($query) use ($l) {
+                return $query
+                    ->where('year_id', '=', $l->year_id)
+                    ->where('level_id', '=', $l->id);
+            },
             'deliberations.deliberateds',
             'students.notes.group',
             'students.notes.student',
-        ])->whereProgrammeId($programmeId)
-            ->whereYearId($yearId);
+        ])->find($l->id);
 
-        return $optionId === null
-            ? $level->first() :
-            $level->whereOptionId($optionId);
+        if ($level === null) {
+            throw new YearIsNotClosedException(
+                $programmeId
+            );
+        }
+
+        return $level;
     }
 
     public static function findAllLevel(string $programmeId, int $yearId): Collection
@@ -104,6 +127,23 @@ abstract class QueryDelibe
             ])
             : $newBasicYear;
     }
+
+    public static function replyLevel(Year $year, Level $level): Level
+    {
+        $l = Level::whereYearId($year->id)
+            ->whereOptionId($level->option_id)
+            ->whereProgrammeId($level->programme_id)
+            ->first();
+
+        return $l === null
+            ? Level::create([
+                'year_id' => $year->id,
+                'programme_id' => $level->programme_id,
+                'option_id' => $level->option_id,
+            ])
+            : $level;
+    }
+
 
     public static function newLevelInfo(
         Year $year,

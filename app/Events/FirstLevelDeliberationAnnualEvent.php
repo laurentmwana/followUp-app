@@ -4,11 +4,12 @@ namespace App\Events;
 
 use Illuminate\Queue\SerializesModels;
 
-class DeliberationAnnualEvent
+class FirstLevelDeliberationAnnualEvent
 {
     use SerializesModels;
 
     public function __construct(
         public string $programmeId,
+        public string $optionId,
     ) {}
 }

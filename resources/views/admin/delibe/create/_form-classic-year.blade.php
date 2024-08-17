@@ -1,8 +1,7 @@
-<form method="post" action="{{ route('~semester') }}" class="space-y-4" method="post"
+<form method="post" action="{{ route('~classic-year') }}" class="space-y-4" method="post"
     onsubmit="return confirm('Voulez-vous vraiment effectuer cette action ?')">
     @csrf
 
-    <input type="hidden" name="semester" value="{{ $semesterId }}">
     <input type="hidden" name="programme" value="{{ $programmeId }}">
     <div>
         <x-input-label for="option_id">Option</x-input-label>

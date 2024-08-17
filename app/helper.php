@@ -46,16 +46,20 @@ function formatLevelToStudent(?string $programmeId): array
 {
     if (null === $programmeId) return [];
 
+
     $items = [];
 
-    $level = Level::with(['students'])
+    $levels = Level::with(['students', 'option'])
         ->whereYearId(QueryYear::currentYear()->id)
-        ->whereProgrammeId($programmeId)->first();
-    if (null === $level) return [];
+        ->whereProgrammeId($programmeId)->get();
 
-    foreach ($level->students as $student) {
-        $value = "{$student->name} {$student->fristname}";
-        $items[$student->id] = $value;
+    if (null === $levels) return [];
+
+    foreach ($levels as $level) {
+        foreach ($level->students as $student) {
+            $value = "{$student->name} {$student->firstname} | {$level->option->alias}";
+            $items[$student->id] = $value;
+        }
     }
 
     return $items;

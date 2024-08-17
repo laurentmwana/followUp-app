@@ -4,7 +4,7 @@ namespace App\Http\Requests\Admin;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class DeliberationAnnualRequest extends FormRequest
+class DeliberationSemesterRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,6 +22,10 @@ class DeliberationAnnualRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'semester' => [
+                'required',
+                'exists:semesters,id'
+            ],
             'programme' => [
                 'required',
                 'exists:programmes,id'
@@ -29,7 +33,7 @@ class DeliberationAnnualRequest extends FormRequest
             'option_id' => [
                 'required',
                 'exists:options,id'
-            ]
+            ],
         ];
     }
 }

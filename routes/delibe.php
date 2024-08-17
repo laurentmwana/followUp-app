@@ -1,11 +1,12 @@
 <?php
 
 use App\Http\Controllers\Admin\Delibe\Annual\AdminAnnualController;
-use App\Http\Controllers\Admin\Delibe\Annual\AdminNewAnnualBasicController;
+use App\Http\Controllers\Admin\Delibe\Annual\AdminNewFirstLevelAnnualController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\Delibe\AdminNewDeliberationController;
 use App\Http\Controllers\Admin\Delibe\AdminDelibeTargetController;
 use App\Http\Controllers\Admin\Delibe\AdminDeliberationController;
+use App\Http\Controllers\Admin\Delibe\Annual\AdminNewSecondLevelAnnualController;
 
 Route::prefix('admin')->name('~')->middleware(['auth', 'verified', 'admin'])
     ->group(function () {
@@ -37,15 +38,12 @@ Route::prefix('admin')->name('~')->middleware(['auth', 'verified', 'admin'])
         Route::get('new-deliberation', AdminDelibeTargetController::class)
             ->name('delibe.new');
 
-        Route::post('deliberation/create-basic', AdminNewDeliberationController::class)
-            ->name('basic');
+        Route::post('deliberation-semester/create-basic', AdminNewDeliberationController::class)
+            ->name('semester');
 
-        Route::post('deliberation/create-basic-year', AdminNewAnnualBasicController::class)
+        Route::post('deliberation/create-basic-year', AdminNewFirstLevelAnnualController::class)
             ->name('basic-year');
 
-        Route::post('deliberation/create-classic', AdminNewDeliberationController::class)
-            ->name('classic');
-
-        Route::post('deliberation/create-classic-year', AdminNewDeliberationController::class)
+        Route::post('deliberation/create-classic-year', AdminNewSecondLevelAnnualController::class)
             ->name('classic-year');
     });

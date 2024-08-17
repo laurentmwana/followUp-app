@@ -47,7 +47,7 @@ class NoteRequest extends FormRequest
             ],
             'year_id' => [
                 'required',
-                'exists:semesters,id'
+                'exists:years,id'
             ],
         ];
     }

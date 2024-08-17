@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Models\Event;
 use App\Models\Level;
 use App\Models\Annual;
 use App\Models\Course;
@@ -10,7 +9,6 @@ use App\Models\Option;
 use App\Models\Student;
 use App\Models\Professor;
 use App\Models\Deliberated;
-use App\Models\Deliberation;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use App\Http\Controllers\Controller;
@@ -55,14 +53,13 @@ class DashboardController extends Controller
         if ($levelId === null) {
             return [
                 'okStudent' => Deliberated::where('annual_id', '!=', null)
-                    ->where('pourcent', '>', 49)->count('id'),
+                    ->where('decision', '=', 'Admis')->count('id'),
                 'failStudent' => Deliberated::where('annual_id', '!=', null)
-                    ->where('pourcent', '<=', 49)->count('id'),
+                    ->where('decision', '=', 'Reprend')->count('id'),
             ];
         }
-
         $annualIds = Annual::whereLevelId($levelId)
-            ->get('id');
+            ->pluck('id')->toArray();
 
         $deliberated = Deliberated::whereIn(
             'annual_id',
@@ -70,8 +67,8 @@ class DashboardController extends Controller
         );
 
         return [
-            'okStudent' => $deliberated !== null ? $deliberated->where('pourcent', '>', 49)->count('id') : 0,
-            'failStudent' => $deliberated !== null ? $deliberated->where('pourcent', '<=', 49)->count('id') : 0,
+            'okStudent' => $deliberated !== null ? $deliberated->where('decision', '=', 'Admis')->count('id') : 0,
+            'failStudent' => $deliberated !== null ? $deliberated->where('decision', '=', 'Reprend')->count('id') : 0,
         ];
     }
 }

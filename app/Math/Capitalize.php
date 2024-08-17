@@ -3,6 +3,8 @@
 
 namespace App\Math;
 
+use App\Enums\DecisionEnum;
+
 abstract class Capitalize
 {
     private const LIMIT = 45;
@@ -23,6 +25,8 @@ abstract class Capitalize
     {
         $ok = self::ok($ncc, $tncc);
 
-        return $ok ? 'Admis' : 'Reprend';
+        return $ok
+            ? DecisionEnum::DECISION_ADMITTED->value
+            : DecisionEnum::DECISION_RETAKE->value;
     }
 }

@@ -10,7 +10,7 @@ $programmeId = request()->query->get('programme');
         </h2>
 
         <div>
-            <div class="flex gap-4 flex-wrap w-ful">
+            <div class="flex gap-6 flex-wrap w-ful">
                 <div>
                     @include('shared.programme', [
                     'routeName' => '~delibe.new'
@@ -18,6 +18,9 @@ $programmeId = request()->query->get('programme');
                 </div>
 
                 <div class="sm:w-full lg:max-w-lg">
+                    <div class="mb-2">
+
+                    </div>
                     <div class="bg-inherit">
                         @if ($programmeId === '1' && ($semesterId === '1' || $semesterId === '2'))
                         @include('admin.delibe.create._form-basic', [
@@ -32,6 +35,11 @@ $programmeId = request()->query->get('programme');
 
                         @elseif($programmeId === '2' && ($semesterId === '3' || $semesterId === '4'))
                         @include('admin.delibe.create._form-classic', [
+                        'programmeId' => $programmeId,
+                        ])
+
+                        @elseif($programmeId === '2' && ($semesterId === null || $semesterId === ''))
+                        @include('admin.delibe.create._form-classic-year', [
                         'programmeId' => $programmeId,
                         ])
                         @else

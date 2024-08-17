@@ -8,9 +8,9 @@ use App\Math\Capitalize;
 use App\Query\QueryYear;
 use App\Query\QueryDelibe;
 use App\Models\Deliberated;
-use App\Events\DeliberationAnnualEvent;
+use App\Events\FirstLevelDeliberationAnnualEvent;
 
-class ProgrammeBasicAnnualListener
+class FirstLevelDeliberationAnnualListener
 {
     /**
      * Create the event listener.
@@ -20,17 +20,23 @@ class ProgrammeBasicAnnualListener
     /**
      * Handle the event.
      */
-    public function handle(DeliberationAnnualEvent $event): void
-    {
+    public function handle(
+        FirstLevelDeliberationAnnualEvent $event
+    ): void {
         $year = QueryYear::currentYear();
+
         $level = QueryDelibe::findLevel(
             $event->programmeId,
-            $year->id
+            $year->id,
+            $event->optionId
         );
 
         $annual = QueryDelibe::newAnnual($year->id, $level->id);
 
-        AnnualConstraint::hasDelibeSemesterExist($level, $annual);
+        AnnualConstraint::hasDelibeSemesterExist(
+            $level,
+            $annual,
+        );
 
         $deliberatedsAnnuals = $this->calculateDeliberations(
             $level->students,
