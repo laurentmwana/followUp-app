@@ -9,9 +9,7 @@ use Illuminate\Pagination\LengthAwarePaginator;
 
 class Filter
 {
-    public function __construct(private Request $request)
-    {
-    }
+    public function __construct(private Request $request) {}
 
     public function levels(): LengthAwarePaginator
     {

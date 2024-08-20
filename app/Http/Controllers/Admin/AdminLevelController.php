@@ -29,13 +29,17 @@ class AdminLevelController extends Controller
     /**
      * Permet d'afficher plus d'information sur une promotion
      *
-     * @param \App\Models\Level $level
+     * @param string $level
      * @return \Illuminate\Contracts\View\View
      */
-    public function show(Level $level): View
+    public function show(string $level): View
     {
+        $levelData = Level::with(['students', 'option', 'programme', 'year'])
+            ->find($level);
+
         return view('admin.level.show', [
-            'level' => $level
+            'level' => $levelData,
+            'students' => $levelData->students()->paginate(),
         ]);
     }
 }

@@ -31,12 +31,12 @@ class UserRequest extends FormRequest
                 'required',
                 'string',
                 'between:2,255',
-                (new Unique(User::class))->ignore($id),
             ],
             'email' => [
                 'required',
                 'string',
-                'between:2,255',
+                'max:255',
+                (new Unique(User::class))->ignore($id),
             ],
             'password' => [
                 'string',
@@ -44,7 +44,8 @@ class UserRequest extends FormRequest
             ],
             'student_id' => [
                 'required',
-                'exists:students,id'
+                'exists:students,id',
+                (new Unique(User::class))->ignore($id),
             ],
         ];
     }
@@ -52,7 +53,7 @@ class UserRequest extends FormRequest
     public function prepareForValidation()
     {
         $this->merge([
-            'password' => $this->input('password') ?: 'campus12345678',
+            'password' => $this->input('password') ?: '123456789',
         ]);
     }
 }

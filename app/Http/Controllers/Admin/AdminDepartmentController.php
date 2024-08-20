@@ -28,13 +28,17 @@ class AdminDepartmentController extends Controller
 
     /**
      * Permet d'afficher plus d'information sur un département
-     * @param \App\Models\Department $department
+     * @param string $department
      * @return \Illuminate\Contracts\View\View
      */
-    public function show(Department $department): View
+    public function show(string $department): View
     {
+        $departmentData = Department::with(['options'])
+            ->find($department);
+
         return view('admin.department.show', [
-            'department' => $department,
+            'department' => $departmentData,
+            'options' => $departmentData->options()->paginate(),
         ]);
     }
 

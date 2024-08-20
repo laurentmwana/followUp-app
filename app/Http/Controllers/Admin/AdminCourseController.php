@@ -55,13 +55,16 @@ class AdminCourseController extends Controller
     /**
      * Permet d'afficher plus d'information sur un cours
      *
-     * @param \App\Models\Course $course
+     * @param string $course
      * @return \Illuminate\Contracts\View\View
      */
-    public function show(Course $course): View
+    public function show(string $course): View
     {
+        $courseData = Course::with(['professor', 'semester', 'group'])
+            ->find($course);
+
         return view('admin.course.show', [
-            'course' => $course,
+            'course' => $courseData,
         ]);
     }
 

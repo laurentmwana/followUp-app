@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Search\Search;
+use App\Models\Level;
 use App\Models\Option;
+use App\Search\Search;
 use Illuminate\Http\Request;
 use Illuminate\Contracts\View\View;
 use App\Http\Controllers\Controller;
@@ -60,8 +61,13 @@ class AdminOptionController extends Controller
      */
     public function show(Option $option): View
     {
+        $levels = Level::with(['option', 'programme', 'year', 'students'])
+            ->orderByDesc('updated_at')
+            ->whereOptionId($option->id)->paginate();
+
         return view('admin.option.show', [
             'option' => $option,
+            'levels' => $levels
         ]);
     }
 

@@ -57,10 +57,14 @@ class AdminStudentController extends Controller
      * @param \App\Models\Student $student
      * @return \Illuminate\Contracts\View\View
      */
-    public function show(Student $student): View
+    public function show(string $student): View
     {
+        $studentData = Student::with(['user'])
+            ->find($student);
+
         return view('admin.student.show', [
-            'student' => $student,
+            'student' => $studentData,
+            'user' => $studentData->user,
         ]);
     }
 

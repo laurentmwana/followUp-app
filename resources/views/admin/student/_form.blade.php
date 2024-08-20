@@ -36,6 +36,21 @@
         <x-input-error :messages="$errors->get('sex')" class="mt-2" />
     </div>
 
+    <div>
+        <x-input-label for="levels">Promotion</x-input-label>
+        <x-select :items="currentYearLevel()" id="levels" name="levels" value="{{ old('levels', $student->levels) }}"
+            placeholder="Selectionner la promotion" />
+        <x-input-error :messages="$errors->get('levels')" class="mt-2" />
+    </div>
+
+
+    <div>
+        <x-input-label for="choice">Choix d'option</x-input-label>
+        <x-select :items="currentYearLevel()" id="choice" name="choice" value="{{ old('choice', $student->choice) }}"
+            placeholder="Selectionner une option" />
+        <x-input-error :messages="$errors->get('choice')" class="mt-2" />
+    </div>
+
     <x-primary-button>
         <i class="bi {{ $student->id ? 'bi-pen' : 'bi-plus' }}"></i>
     </x-primary-button>

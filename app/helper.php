@@ -102,3 +102,32 @@ function currentYear(): Year
 {
     return QueryYear::currentYear();
 }
+
+function age(string $happy): string
+{
+    $year = (int)(new \DateTime($happy))->format('Y');
+
+    $age = (int)date('Y') - $year;
+
+    return $age . ' ans';
+}
+
+
+
+function currentYearLevel(): array
+{
+    $year = currentYear();
+
+    $levels =  Level::with(['option', 'programme'])
+        ->whereYearId($year->id)
+        ->get();
+
+    $levelsArray = [];
+
+    foreach ($levels as $level) {
+        $levelName = "{$level->programme->name} {$level->option->name}";
+        $levelsArray[$level->id] = $levelName;
+    }
+
+    return $levelsArray;
+}

@@ -3,14 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Constraint\NoteConstraint;
-use App\Models\Dean;
 use App\Models\Note;
 use App\Search\Search;
-use Illuminate\Http\Request;
 use Illuminate\Contracts\View\View;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
-use App\Http\Requests\Admin\DeanRequest;
 use App\Http\Requests\Admin\NoteRequest;
 use App\Models\Course;
 
@@ -72,13 +69,15 @@ class AdminNoteController extends Controller
     /**
      * Permet d'afficher plus d'information sur une note
      *
-     * @param \App\Models\Note $note
+     * @param string $note
      * @return \Illuminate\Contracts\View\View
      */
-    public function show(Note $note): View
+    public function show(string $note): View
     {
+        $noteData = Note::with(['student', 'semester', 'group', 'course', 'year'])
+            ->find($note);
         return view('admin.note.show', [
-            'note' => $note
+            'note' => $noteData
         ]);
     }
 

@@ -55,13 +55,17 @@ class AdminGroupController extends Controller
     /**
      * Permet d'afficher plus d'information sur un doyen
      *
-     * @param \App\Models\Group $group
+     * @param string $group
      * @return \Illuminate\Contracts\View\View
      */
-    public function show(Group $group): View
+    public function show(string $group): View
     {
+        $groupData = Group::with(['courses'])
+            ->find($group);
+
         return view('admin.group.show', [
-            'group' => $group
+            'group' => $groupData,
+            'courses' => $groupData->courses()->paginate(),
         ]);
     }
 

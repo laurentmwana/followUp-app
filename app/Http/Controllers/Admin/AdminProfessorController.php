@@ -53,12 +53,18 @@ class AdminProfessorController extends Controller
     /**
      * Permet d'afficher plus d'information sur un professeur
      *
-     * @param \App\Models\Professor $professor
+     * @param string $professor
      * @return \Illuminate\Contracts\View\View
      */
-    public function show(Professor $professor): View
+    public function show(string $professor): View
     {
-        return view('admin.professor.show', ['professor' => $professor]);
+        $professorData = Professor::with(['courses'])
+            ->find($professor);
+
+        return view('admin.professor.show', [
+            'professor' => $professorData,
+            'courses' => $professorData->courses()->paginate()
+        ]);
     }
 
 

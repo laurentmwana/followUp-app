@@ -39,4 +39,9 @@ class Student extends Model
     {
         return $this->hasOne(Choice::class);
     }
+
+    public function user(): HasOne
+    {
+        return $this->hasOne(User::class);
+    }
 }

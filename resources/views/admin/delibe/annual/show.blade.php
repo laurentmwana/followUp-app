@@ -1,4 +1,4 @@
-<x-admin-layout title=" Plus d'informaion sur la délibération #{{ $annual->id }}">
+<x-admin-layout title=" Plus d'information sur la délibération #{{ $annual->id }}">
     <x-container class="py-12">
         <div class="mb-6 max-w-lg">
             <h2 class="text-base font-medium mb-2">
