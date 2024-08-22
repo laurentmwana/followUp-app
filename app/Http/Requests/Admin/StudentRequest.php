@@ -54,6 +54,14 @@ class StudentRequest extends FormRequest
                 'required',
                 'date_format:Y-m-d'
             ],
+            'level' => [
+                'required',
+                'exists:levels,id'
+            ],
+            'choice' => [
+                'required',
+                'exists:options,id'
+            ],
         ];
     }
 }

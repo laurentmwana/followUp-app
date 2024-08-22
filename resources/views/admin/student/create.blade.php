@@ -6,9 +6,9 @@
         <div class="max-w-lg">
             <x-card>
                 @include('admin.student._form', [
-                    'student' => $student,
+                'student' => $student,
                 ])
             </x-card>
-           </div>
+        </div>
     </x-container>
 </x-admin-layout>

@@ -32,12 +32,17 @@ class ProfessorRequest extends FormRequest
             'name' => [
                 'required',
                 'string',
-                'between:3,255'
+                'between:3,255',
             ],
             'firstname' => [
                 'required',
                 'string',
-                'between:3,255'
+                'between:3,255',
+            ],
+            'email' => [
+                'required',
+                'email',
+                (new Unique(Professor::class))->ignore($id)
             ],
             'sex' => [
                 'required',

@@ -37,16 +37,16 @@
     </div>
 
     <div>
-        <x-input-label for="levels">Promotion</x-input-label>
-        <x-select :items="currentYearLevel()" id="levels" name="levels" value="{{ old('levels', $student->levels) }}"
+        <x-input-label for="level">Promotion</x-input-label>
+        <x-select :items="currentYearLevel()" id="level" name="level" value="{{ old('level', $student->level) }}"
             placeholder="Selectionner la promotion" />
-        <x-input-error :messages="$errors->get('levels')" class="mt-2" />
+        <x-input-error :messages="$errors->get('level')" class="mt-2" />
     </div>
-
 
     <div>
         <x-input-label for="choice">Choix d'option</x-input-label>
-        <x-select :items="currentYearLevel()" id="choice" name="choice" value="{{ old('choice', $student->choice) }}"
+        <x-select :items="formatOptions()" id="choice" name="choice"
+            value="{{ old('choice', null === $student->choice ? '': $student->choice->option_id) }}"
             placeholder="Selectionner une option" />
         <x-input-error :messages="$errors->get('choice')" class="mt-2" />
     </div>

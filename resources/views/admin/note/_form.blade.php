@@ -7,7 +7,7 @@ $students = formatLevelToStudent($programmeId);
 $courses = formatCourseToGroup($semesterId);
 @endphp
 
-<div class="flex gap-4 flex-wrap w-ful">
+<div class="flex gap-4 flex-wrap w-full">
     <div>
         @include('shared.programme', [
         'routeName' => $note->id ? '~note.edit' : '~note.create',
@@ -16,16 +16,20 @@ $courses = formatCourseToGroup($semesterId);
     </div>
 
     <div class="sm:w-full lg:max-w-lg">
+        @if ($errors->has('semester_id'))
+        <div class="mb-4">
+            <x-alert variant="error">
+                {{
+                is_array($errors->get('semester_id'))
+                ? implode('<br>', $errors->get('semester_id'))
+                : $errors->get('semester_id')
+                }}
+            </x-alert>
+        </div>
+        @endif
         <x-card class="bg-inherit">
 
-            @if ($errors->get('semester_id'))
-            <div class="mb-4">
-                <x-alert variant="error">
 
-                    {{ $errors->get('semester_id') }}
-                </x-alert>
-            </div>
-            @endif
 
             <div>
                 <form class="space-y-4" action="{{ $note->id ? route('~note.update', $note) : route('~note.store') }}"

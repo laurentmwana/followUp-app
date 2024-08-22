@@ -97,7 +97,6 @@ function formatOptions(): array
     return $items;
 }
 
-
 function currentYear(): Year
 {
     return QueryYear::currentYear();

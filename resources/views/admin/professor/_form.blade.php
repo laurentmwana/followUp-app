@@ -24,6 +24,11 @@
         <x-input-error :messages="$errors->get('phone')" class="mt-2" />
     </div>
     <div>
+        <x-input-label for="email">Adresse e-mail</x-input-label>
+        <x-text-input value="{{ old('email', $professor->email) }}" id="email" name="email" />
+        <x-input-error :messages="$errors->get('email')" class="mt-2" />
+    </div>
+    <div>
         <x-input-label for="sex">Sexe</x-input-label>
         <x-select :items="[
             'M' => 'Homme',

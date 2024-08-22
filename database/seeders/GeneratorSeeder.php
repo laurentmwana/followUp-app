@@ -4,12 +4,10 @@ namespace Database\Seeders;
 
 use App\Models\Code;
 use App\Models\Year;
-use App\Models\Group;
 use App\Models\Level;
 use App\Models\Option;
 use App\Models\Faculty;
 use App\Models\Category;
-use App\Models\Decision;
 use App\Models\Semester;
 use App\Models\Professor;
 use App\Models\Programme;
@@ -71,16 +69,16 @@ class GeneratorSeeder extends Seeder
             ['name' => 'B'],
         ]);
 
-        Professor::factory(3)->create();
-
-        Year::factory()->createMany([
-            ['start' => 2023, 'end' => 2024, 'state' => 0],
+        $year = Year::create([
+            'start' => 2023,
+            'end' => 2024,
+            'state' => 0,
         ]);
 
         Level::factory()->create([
             'programme_id' => Programme::find(1)->id,
             'option_id' => Option::find(1)->id,
-            'year_id' => Year::find(1)->id,
+            'year_id' => $year->id,
         ]);
     }
 }

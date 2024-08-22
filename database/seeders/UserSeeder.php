@@ -19,34 +19,5 @@ class UserSeeder extends Seeder
             'email' => 'demo@gmail.com',
             'name' => 'padoda',
         ]);
-
-        $students = [
-            ['name' => 'NTUMBA', 'firstname' => 'NKITA'],
-            ['name' => 'MUKUNGI', 'firstname' => 'MUSEMES'],
-            ['name' => 'BOBELE', 'firstname' => 'BOLONGOMBA'],
-            ['name' => 'ISAKO', 'firstname' => 'IYOTA'],
-        ];
-
-        foreach ($students as $key => $student) {
-            $newStudent = Student::factory()->create([
-                'name' => $student['name'],
-                'firstname' => $student['firstname'],
-            ]);
-
-            User::factory()
-                ->create(['student_id' => $newStudent->id]);
-
-            if ($key >= 0 && $key < 2) {
-                $newStudent->choice()->create([
-                    'option_id' => 3
-                ]);
-            }
-
-            if ($key >= 2 && $key < 4) {
-                $newStudent->choice()->create([
-                    'option_id' => 2
-                ]);
-            }
-        }
     }
 }

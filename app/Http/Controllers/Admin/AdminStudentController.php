@@ -44,7 +44,12 @@ class AdminStudentController extends Controller
      */
     public function store(StudentRequest $request): RedirectResponse
     {
-        Student::create($request->validated());
+        $student = Student::create($request->validated());
+
+        $student->choice()->create([
+            'option_id' => $request->validated('choice')
+        ]);
+        $student->levels()->sync([$request->validated('level')]);
 
         return redirect()->route('~student.index')
             ->with('success', 'étudiant créé');
