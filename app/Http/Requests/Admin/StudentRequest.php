@@ -4,6 +4,7 @@ namespace App\Http\Requests\Admin;
 
 use App\Helpers\Generator\GeneratorToken;
 use App\Models\Student;
+use App\Rules\BetweenDateHappyRule;
 use App\Rules\PhoneFormatRule;
 use App\Rules\SexRule;
 use Illuminate\Validation\Rules\Unique;
@@ -52,7 +53,8 @@ class StudentRequest extends FormRequest
             ],
             'happy' => [
                 'required',
-                'date_format:Y-m-d'
+                'date_format:Y-m-d',
+                new BetweenDateHappyRule
             ],
             'level' => [
                 'required',

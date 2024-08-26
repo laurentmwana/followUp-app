@@ -22,7 +22,7 @@
             <div class="mr-4 hidden md:flex">
                 <a class="mr-4 flex items-center space-x-2 lg:mr-6" href="/">
                     <span
-                        class="font-manrope font-black leading-snug text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 via-indigo-600 to-black/70">
+                        class="font-manrope font-black leading-snug text-transparent bg-clip-text bg-gradient-to-r from-green-400 via-green-600 to-black/70">
                         FollowUp
                     </span>
                 </a>
@@ -46,15 +46,14 @@
                 <div class="flex items-center justify-center gap-x-5">
                     <a href="/" class="block mt-2">
                         <span
-                            class="font-manrope font-black leading-snug text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 via-indigo-600 to-black/70">
+                            class="font-manrope font-black leading-snug text-transparent bg-clip-text bg-gradient-to-r from-green-400 via-green-600 to-black/70">
                             FollowUp
                         </span>
                     </a>
                     <div>
                         <x-dropdown align="left" width="48">
                             <x-slot name="trigger">
-                                <x-secondary-button>
-                                </x-secondary-button>
+                                @include('shared.button-responsive')
                             </x-slot>
 
                             <x-slot name="content">

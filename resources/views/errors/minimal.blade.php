@@ -13,7 +13,7 @@
 <body class="flex h-lvh flex-col justify-center items-center">
     <x-container class="p-[50px]">
         <h2
-            class="mb-2 text-8xl font-manrope font-black leading-snug text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 via-indigo-600 to-black/70">
+            class="mb-2 text-8xl font-manrope font-black leading-snug text-transparent bg-clip-text bg-gradient-to-r from-green-400 via-green-600 to-black/70">
             @yield('code')
         </h2>
 

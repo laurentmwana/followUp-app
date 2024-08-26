@@ -68,7 +68,7 @@ $semesterId = request()->query->get('semester');
             <p class="text-sm font-light">
                 Pourcentage :
             </p>
-            <p class="text-sm text-indigo-800 font-bold">
+            <p class="text-sm text-green-800 font-bold">
                 {{ $deliberated->pourcent }}%
             </p>
         </div>
@@ -76,7 +76,7 @@ $semesterId = request()->query->get('semester');
             <p class="text-sm font-light">
                 Mention :
             </p>
-            <p class="text-sm text-indigo-800 font-bold">
+            <p class="text-sm text-green-800 font-bold">
                 {{ $deliberated->validated }}
             </p>
         </div>
@@ -84,7 +84,7 @@ $semesterId = request()->query->get('semester');
             <p class="text-sm font-light">
                 Décision :
             </p>
-            <p class="text-sm text-indigo-800 font-bold">
+            <p class="text-sm text-green-800 font-bold">
                 {{ $deliberated->decision }}
             </p>
         </div>

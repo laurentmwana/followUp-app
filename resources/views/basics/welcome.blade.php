@@ -12,7 +12,7 @@
             </svg>
         </a>
         <h1
-            class="mb-4 animate-js text-4xl font-extrabold tracking-tight leading-none text-foreground md:text-5xl lg:text-6xl">
+            class="text-4xl font-extrabold tracking-tight md:text-5xl lg:text-6xl leading-snug text-transparent bg-clip-text bg-gradient-to-r from-primary/50 via-primary/70 to-black/70 mb-6">
             Welcome To FollowUp</h1>
         <p class="mb-8 text-lg font-normal text-muted-foreground lg:text-xl sm:px-16 xl:px-48">
             FollowUp est une application web dédiée au suivi des délibérations des étudiants de l'Université de Kinshasa

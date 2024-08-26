@@ -12,7 +12,7 @@ $yearId = request()->query->get('year');
     </a>
     @elseif ($year->state === 0)
     <a title="en cours" href="{{ route($routeName, ['year' => $year->id,]) }}"
-        class="relative w-full rounded-lg border border-indigo-500 px-4 py-3 text-sm [&>svg+div]:translate-y-[-3px] [&>svg]:absolute [&>svg]:left-4 [&>svg]:top-4 [&>svg]:text-foreground [&>svg~*]:pl-7 bg-background text-foreground">
+        class="relative w-full rounded-lg border border-green-500 px-4 py-3 text-sm [&>svg+div]:translate-y-[-3px] [&>svg]:absolute [&>svg]:left-4 [&>svg]:top-4 [&>svg]:text-foreground [&>svg~*]:pl-7 bg-background text-foreground">
         {{ $year->start }} - {{ $year->end }}
     </a>
     @else

@@ -18,7 +18,7 @@
 <body class="font-sans">
     <header class="p-6 bg-gray-100 text-center">
         <span
-            class=" uppercase text-4xl font-manrope font-black leading-snug text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 via-indigo-500 to-black/80">
+            class=" uppercase text-4xl font-manrope font-black leading-snug text-transparent bg-clip-text bg-gradient-to-r from-green-400 via-green-500 to-black/80">
             {{ $attributes["title"] }}
         </span>
     </header>

@@ -80,5 +80,9 @@ class GeneratorSeeder extends Seeder
             'option_id' => Option::find(1)->id,
             'year_id' => $year->id,
         ]);
+
+
+
+        Professor::factory(20)->create();
     }
 }
