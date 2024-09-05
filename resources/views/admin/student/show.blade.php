@@ -58,6 +58,9 @@
                     Aunthentification
                 </h2>
 
+                @if (null !== $user)
+
+
                 <div class="flex items-center gap-3 mb-3">
                     <p class="text-sm text-muted-foreground">Nom : </p>
                     <p class="text-sm text-muted-foreground">
@@ -94,6 +97,13 @@
                     'now' => $user->created_at
                     ])
                 </div>
+
+                @else
+                <p class="text-muted-foreground text-sm">
+                    Cet utilisateur n'a pas un compte
+                </p>
+                @endif
+
             </x-card>
         </div>
     </x-container>

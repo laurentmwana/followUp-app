@@ -5,7 +5,6 @@ $generate = request()->query->get('generate', false);
 
 $programmes = \App\Models\Programme::pluck('name', 'id');
 
-
 $semesters = \App\Models\Semester::whereProgrammeId($programmeId)
 ->pluck('name', 'id');
 
@@ -32,18 +31,6 @@ $semesters = \App\Models\Semester::whereProgrammeId($programmeId)
         </form>
         @endif
     </div>
-
-    {{-- <form action="{{ route('^pdf.index', [
-    'programme' => $programmeId,
-    'semester' => $semesterId,
-    'generate' => true,
-    ]) }}" class="flex items-center justify-end gap-2">
-        <input type="hidden" name="generate" value="1">
-
-        <x-secondary-button type="submit">
-            <i class="bi bi-printer"></i>
-        </x-secondary-button>
-    </form> --}}
 
     <div>
         <x-secondary-button type="button" onclick="return window.print()">

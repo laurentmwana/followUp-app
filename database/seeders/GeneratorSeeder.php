@@ -82,7 +82,6 @@ class GeneratorSeeder extends Seeder
         ]);
 
 
-
-        Professor::factory(20)->create();
+        Professor::factory(5)->create();
     }
 }
